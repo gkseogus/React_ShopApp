@@ -44,6 +44,14 @@ const CartListItemImage = styled.img`
   height: 100px;
 `;
 
+const RemoveCart = styled.button`
+  padding: 10px;
+  background-color: blue;
+  color: #ffffff;
+  border-radius: 10px;
+`;
+
+
 // cart 소파이름 옵션 ( color: purple; )
 const CartListItemName = styled.p`
 `;
@@ -59,7 +67,10 @@ interface propsFromState {
 type AllProps = propsFromState;
 
 const CartComponent: React.FC<AllProps> = ({ cartItems }) => {
-  console.log("cartItems", cartItems);
+  // console.log("cartItems", cartItems);
+  // const RemoveItemToCart = (cartItems: any) => {
+  //   RemoveToCart(cartItems);
+  // };
   return (
     <CartContainer>
       <CartHeaderDiv>
@@ -72,6 +83,7 @@ const CartComponent: React.FC<AllProps> = ({ cartItems }) => {
               <CartListItemImage src={item.image} />
               <CartListItemName>{item.name}</CartListItemName>
               <CartListItemPrice>{item.price}</CartListItemPrice>
+              <RemoveCart >Remove To Cart</RemoveCart>
             </CartListItemDiv>
           );
         })}
