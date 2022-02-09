@@ -47,7 +47,7 @@ const HomePage: React.FC<AllProps> = ({data,fetchRequest}) => {
   useEffect(() => { 
     console.log('useEffect Check');
     fetchRequest();
-  }, []);
+  }, [fetchRequest]);
   
   return (
     <Container>
