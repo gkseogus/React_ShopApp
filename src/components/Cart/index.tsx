@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-
+import { AnyAction } from "redux";
+import { removeToCart } from "../../store/cart/action";
+import { ThunkDispatch } from "redux-thunk";
 import { ApplicationState } from "../../store";
 import { Cart } from "../../store/cart/types";
 
