@@ -62,15 +62,17 @@ const CartListItemPrice = styled.p`
 
 interface propsFromState {
   cartItems: Cart;
+  removeToCart: (cartItems: any) => any;
 }
 
 type AllProps = propsFromState;
 
-const CartComponent: React.FC<AllProps> = ({ cartItems }) => {
+const CartComponent: React.FC<AllProps> = ({ cartItems, removeToCart }) => {
   // console.log("cartItems", cartItems);
-  // const RemoveItemToCart = (cartItems: any) => {
-  //   RemoveToCart(cartItems);
-  // };
+  const RemoveItemToCart = (cartItems: any) => {
+    removeToCart(cartItems);
+  };
+
   return (
     <CartContainer>
       <CartHeaderDiv>
@@ -83,7 +85,7 @@ const CartComponent: React.FC<AllProps> = ({ cartItems }) => {
               <CartListItemImage src={item.image} />
               <CartListItemName>{item.name}</CartListItemName>
               <CartListItemPrice>{item.price}</CartListItemPrice>
-              <RemoveCart >Remove To Cart</RemoveCart>
+              <RemoveCart onClick={() => RemoveItemToCart(cartItems)}>Remove To item</RemoveCart>
             </CartListItemDiv>
           );
         })}
@@ -96,6 +98,10 @@ const mapStateToProps = ({ cart }: ApplicationState) => ({
   cartItems: cart.data
 });
 
-const mapDispatchProps = () => {};
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
+  return {
+    removeToCart: (cartItems: any) => dispatch(removeToCart(cartItems))
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchProps)(CartComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(CartComponent);
