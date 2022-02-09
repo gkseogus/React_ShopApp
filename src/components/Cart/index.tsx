@@ -87,7 +87,7 @@ const CartComponent: React.FC<AllProps> = ({ cartItems, removeToCart }) => {
               <CartListItemImage src={item.image} />
               <CartListItemName>{item.name}</CartListItemName>
               <CartListItemPrice>{item.price}</CartListItemPrice>
-              <RemoveCart onClick={() => RemoveItemToCart(cartItems)}>Remove To item</RemoveCart>
+              <RemoveCart onClick={() => RemoveItemToCart(item)}>Remove To item</RemoveCart>
             </CartListItemDiv>
           );
         })}
