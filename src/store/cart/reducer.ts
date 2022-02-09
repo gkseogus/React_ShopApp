@@ -42,7 +42,7 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
         data: {
           ...state.data,
           id: state.data.id,
-          items: state.data.items.filter(item => item !== action.payload.id)
+          items: state.data.items.filter(item => item === action.payload.id)
         }
       };
     }
