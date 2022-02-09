@@ -63,7 +63,7 @@ const Navbar: React.FC<AllProps> = ({
   // ㄴ cart 리덕스에 초기값이 정의 되어있다.
   data, 
   children }) => {
-    console.log('navBarData',data)
+    // console.log('navBarData',data)
   return (
     <div>
       <NavContainer>
