@@ -1,0 +1,24 @@
+import { Inventory } from "../inventory/types";
+
+export interface Cart {
+  id: number;
+  items: Inventory[];
+}
+
+
+// 전송 가능한 액션 유형
+export enum CartActionTypes {
+  ADD_TO_CART = "@@cart/ADD_TO_CART", // 장바구니에 제품 추가
+  ADD_TO_CART_FAILURE = "@@cart/ADD_TO_CART_FAILURE",  // add 실패
+  REMOVE_FROM_CART = "@@cart/REMOVE_FROM_CART", // 장바구니의 제품 제거
+  FETCH_CART_REQUEST = "@@cart/FETCH_CART_REQUEST", // 요청
+  FETCH_CART_SUCCESS = "@@cart/FETCH_CART_SUCCESS", // 성공적인 응답
+  FETCH_CART_ERROR = "@@cart/FETCH_CART_ERROR" // 에러
+}
+
+// 변경 불가능한 cart상태 인터페이스
+export interface cartState {
+  readonly loading: boolean;
+  readonly data: Cart;
+  readonly errors?: string;
+}
