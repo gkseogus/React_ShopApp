@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import HomePage from "./components/HomePage";
@@ -8,7 +8,6 @@ import Cart from "./components/Cart";
 
 const Routes: React.SFC = () => (
   <div>
-    <Switch>
       {/* 첫 번째 route */}
       <Route
 
@@ -29,7 +28,6 @@ const Routes: React.SFC = () => (
           </Navbar>
         )}
       />
-    </Switch>
   </div>
 );
 
