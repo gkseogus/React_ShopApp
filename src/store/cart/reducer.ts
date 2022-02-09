@@ -11,18 +11,15 @@ export const initialState: cartState = {
   loading: false
 };
 
-// reducer : dispatch안의 action의 type을 확인하고
-// 그에 맞는 동작을 한다. 
-// 여기서는 state(initialState)를 입력 값으로 받고 action을 참조해 새로운 state 값을 리턴해준다.
 const reducer: Reducer<cartState> = (state = initialState, action) => {
   switch (action.type) {
-    case CartActionTypes.FETCH_CART_REQUEST: { // 요청중이면 == 로딩
+    case CartActionTypes.FETCH_CART_REQUEST: { 
       return { ...state, loading: true };
     }
-    case CartActionTypes.FETCH_CART_SUCCESS: { // 성공적인 응답이면 state 상태를 업데이트
+    case CartActionTypes.FETCH_CART_SUCCESS: { 
       return { ...state, loading: false, data: action.payload };
     }
-    case CartActionTypes.FETCH_CART_ERROR: { // 에러났을 시 == 에러 데이터 보냄
+    case CartActionTypes.FETCH_CART_ERROR: { 
       return { ...state, loading: false, errors: action.payload };
     }
     case CartActionTypes.ADD_TO_CART: { // 장바구니에 제품 추가

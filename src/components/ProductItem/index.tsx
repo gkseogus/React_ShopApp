@@ -60,7 +60,6 @@ const AddToCart = styled.button`
   border-radius: 10px;
 `;
 
-// item는 Inventory 타입으로 정의해라
 interface propsFromComponent {
   item: Inventory;
 }
@@ -69,7 +68,6 @@ interface propsFromDispatch1 {
   addToCart: (item: any) => any;
 }
 
-// Props는 인터페이스(두개)를 갖음
 type Props = propsFromComponent & propsFromDispatch1;
 
 const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
@@ -93,19 +91,10 @@ const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
 
 const mapStateToProps = ( ) => ({});
 
-// 컴포넌트에서 store에 state 수정 요청
-// dispatch내장함수를 통해 리듀서에게 action을 발생시키라고 명령
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
-    // addToCart 데이터를 바탕으로 수정요청
-    // 여기서 액션은 addToCart(item)
     addToCart: (item: any) => dispatch(addToCart(item))
   };
 };
 
-// connect : React 구성 요소를 Redux 저장소에 연결
-// 이때 해당하는 컴포넌트를 Redux랑 연결시켜준다.
-// 이러한 이유는 리덕스 store에는 데이터가 보관되어있고
-// 이 데이터에 접근하거나 컴포넌트 수정을 요청할 때 사용한다.
-// ProductItem : 연동해야 할 컴포넌트
 export default connect(mapStateToProps,mapDispatchToProps)(ProductItem);

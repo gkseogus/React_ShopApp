@@ -52,15 +52,12 @@ const CartListItemName = styled.p`
 const CartListItemPrice = styled.p`
 `;
 
-// cartItems는 Cart 타입으로 정의해라 
 interface propsFromState {
   cartItems: Cart;
 }
 
-// AllProps는 인터페이스를 갖음
 type AllProps = propsFromState;
 
-// cartItems 데이터를 배열 형태로 받아옴
 const CartComponent: React.FC<AllProps> = ({ cartItems }) => {
   console.log("cartItems", cartItems);
   return (
@@ -83,14 +80,10 @@ const CartComponent: React.FC<AllProps> = ({ cartItems }) => {
   );
 };
 
-// cart 란 상태를 저장
 const mapStateToProps = ({ cart }: ApplicationState) => ({
   cartItems: cart.data
 });
 
-// 데이터를 받아오기만 하므로 액션요청x
 const mapDispatchProps = () => {};
 
-// connect : React 구성 요소를 Redux 저장소에 연결
-// CartComponent : 연동해야 할 컴포넌트
 export default connect(mapStateToProps, mapDispatchProps)(CartComponent);

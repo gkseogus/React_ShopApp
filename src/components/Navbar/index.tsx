@@ -7,15 +7,6 @@ import { ApplicationState } from "../../store";
 // import { Inventory } from "../../store/inventory/types";
 import { Cart } from "../../store/cart/types";
 
-// -styled-components 사용 하는 이유-
-// 컴포넌트가 많아지면 css를 한 곳에 관리를 힘들다.
-// class를 중복으로 만들어 놓을 확률이 올라간다.
-// 그래서 class 선언 없이 컴포넌트에 css를 직접 넣어준다. -> css in js 라고도 불림
-
-// -단점-
-// 모든 div를 바꾸고 싶다면
-// 수십개의 컴포넌트를 만들어야 된다.
-
 // 네비게이션 바 옵션
 const NavContainer = styled.div`
   width: 100%;
@@ -64,12 +55,8 @@ interface propsFromState {
   errors?: string;
 }
 
-// AllProps는 인터페이스를 갖음
 type AllProps = propsFromState;
 
-// React.FC를 사용함으로서 Props의 타입을 제네릭으로 넣어서 사용한다.
-// FC<> 는 항상 children prop을 암묵적으로 내장하고 있다.
-// 모든 컴포넌트들은 children 프로퍼티를 가진다.
 // children을 통해 컴포넌트 태그의 자식 컴포넌트 혹은 태그로 들어오는 값을 받을수 있다.
 const Navbar: React.FC<AllProps> = ({ 
   // data는 원래 빈 배열객체, id = 0
@@ -108,6 +95,4 @@ const mapStateToProps = ({ cart }: ApplicationState) => ({
 const mapDispatchToProps = () => {
 };
 
-// connect : React 구성 요소를 Redux 저장소에 연결
-// Navbar : 연동해야 할 컴포넌트
 export default connect(mapStateToProps,mapDispatchToProps)(Navbar);

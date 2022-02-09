@@ -16,7 +16,6 @@ export enum CartActionTypes {
   FETCH_CART_ERROR = "@@cart/FETCH_CART_ERROR" // 에러
 }
 
-// 변경 불가능한 cart상태 인터페이스
 export interface cartState {
   readonly loading: boolean;
   readonly data: Cart;
