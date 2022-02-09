@@ -62,13 +62,10 @@ const AddToCart = styled.button`
 
 interface propsFromComponent {
   item: Inventory;
-}
-
-interface propsFromDispatch1 {
   addToCart: (item: any) => any;
 }
 
-type Props = propsFromComponent & propsFromDispatch1;
+type Props = propsFromComponent;
 
 const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
   const AddItemToCart = (item: any) => {
