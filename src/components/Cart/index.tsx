@@ -74,7 +74,7 @@ const CartComponent: React.FC<AllProps> = ({ cartItems, removeToCart }) => {
   const RemoveItemToCart = (cartItems: any) => {
     removeToCart(cartItems);
   };
-
+  console.log('cartItems',cartItems);
   return (
     <CartContainer>
       <CartHeaderDiv>
