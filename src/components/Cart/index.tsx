@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { AnyAction } from "redux";
-import { removeToCart } from "../../store/cart/action";
+import { removeAllToCart } from "../../store/cart/action";
 import { ThunkDispatch } from "redux-thunk";
 import { ApplicationState } from "../../store";
 import { Cart } from "../../store/cart/types";
@@ -46,13 +46,19 @@ const CartListItemImage = styled.img`
   height: 100px;
 `;
 
-const RemoveCart = styled.button`
+const RemoveALLCart = styled.button`
   padding: 10px;
   background-color: blue;
   color: #ffffff;
   border-radius: 10px;
 `;
 
+const RemoveCart = styled.button`
+  padding: 10px;
+  background-color: blue;
+  color: #ffffff;
+  border-radius: 10px;
+`;
 
 // cart 소파이름 옵션 ( color: purple; )
 const CartListItemName = styled.p`
@@ -64,21 +70,22 @@ const CartListItemPrice = styled.p`
 
 interface propsFromState {
   cartItems: Cart;
-  removeToCart: (cartItems: any) => any;
+  removeAllToCart: (cartItems: any) => any;
 }
 
 type AllProps = propsFromState;
 
-const CartComponent: React.FC<AllProps> = ({ cartItems, removeToCart }) => {
-  // console.log("cartItems", cartItems);
-  const RemoveItemToCart = (cartItems: any) => {
-    removeToCart(cartItems);
+const CartComponent: React.FC<AllProps> = ({ cartItems, removeAllToCart }) => {
+  // 모든 아이템 삭제 함수
+  const RemoveAllItemToCart = (cartItems: any) => {
+    removeAllToCart(cartItems);
   };
   console.log('cartItems',cartItems);
   return (
     <CartContainer>
       <CartHeaderDiv>
         <CartHeader>Your Cart</CartHeader>
+        <RemoveALLCart onClick={() => RemoveAllItemToCart(cartItems)}>Remove ALL To item</RemoveALLCart>
       </CartHeaderDiv>
       <CartListsDiv>
         {cartItems.items.map(item => {
@@ -87,7 +94,6 @@ const CartComponent: React.FC<AllProps> = ({ cartItems, removeToCart }) => {
               <CartListItemImage src={item.image} />
               <CartListItemName>{item.name}</CartListItemName>
               <CartListItemPrice>{item.price}</CartListItemPrice>
-              <RemoveCart onClick={() => RemoveItemToCart(item)}>Remove To item</RemoveCart>
             </CartListItemDiv>
           );
         })}
@@ -102,7 +108,7 @@ const mapStateToProps = ({ cart }: ApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
-    removeToCart: (cartItems: any) => dispatch(removeToCart(cartItems))
+    removeAllToCart: (cartItems: any) => dispatch(removeAllToCart(cartItems))
   };
 };
 

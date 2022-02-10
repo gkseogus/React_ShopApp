@@ -44,11 +44,11 @@ export const addToCart: ActionCreator<NewType> = item => {
   };
 };
 
-export const removeToCart: ActionCreator<NewType> = cartItems => {
+export const removeAllToCart: ActionCreator<NewType> = cartItems => {
   return (dispatch: Dispatch): Action => {
     try {
       return dispatch({
-        type: CartActionTypes.REMOVE_FROM_CART, // 장바구니 제품 제거
+        type: CartActionTypes.REMOVEALL_FROM_CART, // 모든 장바구니 제품 제거
         payload: cartItems // 아이템 데이터를 전송, 이 데이터를 바탕으로 수정 요청
       });
     } catch (e) {

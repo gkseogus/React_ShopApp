@@ -35,14 +35,14 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
         }
       };
     }
-    case CartActionTypes.REMOVE_FROM_CART: { // 장바구니의 제품 제거
+    case CartActionTypes.REMOVEALL_FROM_CART: { // 장바구니의 제품 제거
       return {
         errors: state.errors,
         loading: state.loading,
         data: {
           ...state.data,
-          id: state.data.id.filter(id => id === action.payload.id[1]),
-          items: state.data.id.filter(item => item === action.payload.id)
+          id: state.data.id.filter(id => id === action.payload.id),
+          items: state.data.id.filter(item => item === action.payload.items)
         }
       };
     }
