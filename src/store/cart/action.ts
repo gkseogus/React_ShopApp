@@ -28,6 +28,7 @@ export const fetchCartRequest: AppThunk = () => {
 
 type NewType = ThunkAction<void, ApplicationState, Inventory, Action<string>>;
 
+// 장바구니 제품 추가 함수
 export const addToCart: ActionCreator<NewType> = item => {
   return (dispatch: Dispatch): Action => {
     try {
@@ -44,18 +45,22 @@ export const addToCart: ActionCreator<NewType> = item => {
   };
 };
 
+// 모든 장바구니 제품 제거 함수
 export const removeAllToCart: ActionCreator<NewType> = cartItems => {
   return (dispatch: Dispatch): Action => {
-    try {
       return dispatch({
-        type: CartActionTypes.REMOVEALL_FROM_CART, // 모든 장바구니 제품 제거
+        type: CartActionTypes.REMOVEALL_FROM_CART, 
         payload: cartItems // 아이템 데이터를 전송, 이 데이터를 바탕으로 수정 요청
       });
-    } catch (e) {
-      return dispatch({
-        type: CartActionTypes.ADD_TO_CART_FAILURE, // add 실패시
-        payload: null // null 값 데이터를 전송
-      });
-    }
   };
 };
+
+// 개별 장바구니 제품 제거 함수
+export const removeItem: ActionCreator<NewType> = cartItems => {
+  return (dispatch: Dispatch): Action => {
+      return dispatch({
+        type: CartActionTypes.REMOVE_FROM_ITEM, 
+        payload: cartItems 
+      });
+  };
+}
