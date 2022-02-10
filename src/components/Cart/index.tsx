@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { AnyAction } from "redux";
-import { removeAllToCart } from "../../store/cart/action";
+import { removeAllToCart, removeItem } from "../../store/cart/action";
 import { ThunkDispatch } from "redux-thunk";
 import { ApplicationState } from "../../store";
 import { Cart } from "../../store/cart/types";
@@ -47,7 +47,7 @@ const CartListItemImage = styled.img`
 `;
 
 const RemoveALLCart = styled.button`
-  padding: 10px;
+  padding: 20px;
   background-color: blue;
   color: #ffffff;
   border-radius: 10px;
@@ -71,16 +71,23 @@ const CartListItemPrice = styled.p`
 interface propsFromState {
   cartItems: Cart;
   removeAllToCart: (cartItems: any) => any;
+  removeItem: (cartItems: any) => any;
 }
 
 type AllProps = propsFromState;
 
-const CartComponent: React.FC<AllProps> = ({ cartItems, removeAllToCart }) => {
+const CartComponent: React.FC<AllProps> = ({ cartItems, removeAllToCart, removeItem }) => {
   // 모든 아이템 삭제 함수
   const RemoveAllItemToCart = (cartItems: any) => {
     removeAllToCart(cartItems);
   };
+
+  // 개별 아이템 삭제 함수
+  const RemoveItem = (cartItems: any) => {
+    removeItem(cartItems);
+  };
   console.log('cartItems',cartItems);
+
   return (
     <CartContainer>
       <CartHeaderDiv>
@@ -94,6 +101,7 @@ const CartComponent: React.FC<AllProps> = ({ cartItems, removeAllToCart }) => {
               <CartListItemImage src={item.image} />
               <CartListItemName>{item.name}</CartListItemName>
               <CartListItemPrice>{item.price}</CartListItemPrice>
+              <RemoveCart onClick={() => RemoveItem(cartItems)}>Remove To item</RemoveCart>
             </CartListItemDiv>
           );
         })}
@@ -108,7 +116,8 @@ const mapStateToProps = ({ cart }: ApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
-    removeAllToCart: (cartItems: any) => dispatch(removeAllToCart(cartItems))
+    removeAllToCart: (cartItems: any) => dispatch(removeAllToCart(cartItems)),
+    removeItem: (cartItems: any) => dispatch(removeItem(cartItems))
   };
 };
 
