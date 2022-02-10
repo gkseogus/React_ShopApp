@@ -50,12 +50,10 @@ const HomePage: React.FC<AllProps> = ({data,fetchRequest}) => {
 
   const resultData = () => {
     setnewData(true)
-    console.log('22',newData);
   }
 
   const removeData = () => {
     setnewData(false)
-    console.log('11',newData);
   }
   const handleSubmit = (event:any) => {
     event.preventDefault();
