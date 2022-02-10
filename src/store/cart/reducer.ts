@@ -8,7 +8,7 @@ export const initialState: cartState = {
     items: [] 
   },
   errors: undefined,
-  loading: false
+  loading: false,
 };
 
 const reducer: Reducer<cartState> = (state = initialState, action) => {
@@ -35,16 +35,29 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
         }
       };
     }
-    case CartActionTypes.REMOVEALL_FROM_CART: { // 장바구니의 제품 제거
+    // 모든 장바구니의 제품 제거
+    case CartActionTypes.REMOVEALL_FROM_CART: { 
       return {
         errors: state.errors,
         loading: state.loading,
         data: {
           ...state.data,
-          id: state.data.id.filter(id => id === action.payload.id),
-          items: state.data.id.filter(item => item === action.payload.items)
+          id: state.data.id.filter(idd => idd === action.payload),
+          items: state.data.items.filter(itemm => itemm === action.payload)
         }
       };
+    }
+    // 개별 장바구니의 제품 제거
+    case CartActionTypes.REMOVE_FROM_ITEM: {
+      return {
+        errors: state.errors,
+        loading: state.loading,
+        data:{
+          ...state.data,
+          id: state.data.id.filter(idd => idd === action.payload),
+          items: state.data.items.filter(items => items !== action.payload.id)
+        }
+      }
     }
     default: {
       return state;
