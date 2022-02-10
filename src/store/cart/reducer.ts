@@ -46,26 +46,6 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
         }
       };
     }
-    // 삭제코드 예시
-    // case REMOVE_FROM_CART:
-    //   const selectedCartItem = state.items[action.pid];
-    //   const currentQty = selectedCartItem.quantity;
-    //   let updatedCartItems;
-    //   if (currentQty > 1) {
-    //     // 수량을 줄임. 삭제하지 않음.
-    //     const updatedCartItem = new CartItem(
-    //       currentQty - 1,
-    //       selectedCartItem.productPrice,
-    //       selectedCartItem.productTitle,
-    //       selectedCartItem.sum - selectedCartItem.productPrice
-    //     );
-    //     updatedCartItems = { ...state.items, [action.pid]: updatedCartItem };
-    //   } else {
-    //     // 삭제함.
-    //     updatedCartItems = { ...state.items };
-    //     delete updatedCartItems[action.pid];
-    //   }
-
     default: {
       return state;
     }

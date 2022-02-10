@@ -23,13 +23,7 @@ const ProductListItems = styled.div`
   color: yellow;
 `;
 
-// Add To cart 버튼 옵션 (  background: blue )
-const btn = styled.button`
-  padding: 10px;
-  background-color: blue;
-  color: #ffffff;
-  border-radius: 10px;
-`;
+
 // 인터페이스 정의
 interface PropsFromState {
   loading: boolean;
@@ -52,16 +46,16 @@ const HomePage: React.FC<AllProps> = ({data,fetchRequest}) => {
   }, [fetchRequest]);
   
   // newData가 false면 상품을 안 보여줌
-  const [newData, setnewData] = useState(false);
+  const [newData, setnewData] = useState(true);
 
   const resultData = () => {
     setnewData(true)
-    console.log(newData);
+    console.log('22',newData);
   }
 
   const removeData = () => {
     setnewData(false)
-    console.log(newData);
+    console.log('11',newData);
   }
   const handleSubmit = (event:any) => {
     event.preventDefault();
