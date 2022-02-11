@@ -57,7 +57,8 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
     }
     // 개별 장바구니의 제품 제거
     case CartActionTypes.REMOVE_FROM_ITEM: {
-      console.log('REMOVE_FROM_ITEMAction',action.payload)
+      console.log('REMOVE_FROM_ITEMAction1',action.payload[0]) // 전체 객체를 줌
+      console.log('REMOVE_FROM_ITEMAction2',action.payload[0].id) // 객체 하나만 줌
       return {
         errors: state.errors,
         loading: state.loading,
@@ -68,36 +69,17 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
             // console.log('idd.id',idd.id)
             // console.log('action.payload',action.payload)
             // console.log('action.payload.id',action.payload[0].id)
-            // console.log('state.data.id',state.data.id)
-
-            for(let i=0; i<state.data.id.length; i++){
-              // 이게 거짓이므로 filter는 해당 id 값을 가진 요소를 배열에서 삭제
-              if(idd.id === action.payload[i].id){
-                console.log('ddd',action.payload[i].id)
-                return idd.id !== action.payload[i].id 
+                return idd.id !== action.payload[0].id 
               }
-              else{
-                console.log('ddd2',action.payload[i].id)
-                return idd.id !== action.payload[i].id 
-              }
-            }
             // 현재 0번째 위치한 id 값을 가진 데이터만 제외하고 나머지 값만 배열에서 삭제한다.
-            return idd.id === action.payload[0].id 
-            }
+            // return idd.id === action.payload[0].id 
+            // 현재 0번째 위치한 id 값을 가진 데이터 배열에서 삭제한다.
+            // return itemm.id !== action.payload[0].id 
           ),
 
           // eslint-disable-next-line array-callback-return
           items: state.data.id.filter(itemm => {
-            for(let i=0; i<state.data.id.length; i++){
-              if(itemm.id === action.payload[i].id ){
-                console.log('ttt',action.payload[i].id)
-                return itemm.id !== action.payload[i].id 
-              }
-              else{
-                console.log('ttt2',action.payload[i].id)
-                return itemm.id !== action.payload[i].id 
-              }
-            }
+            return itemm.id !== action.payload[0].id 
             }
           )
         }

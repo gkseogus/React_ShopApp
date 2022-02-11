@@ -58,7 +58,7 @@ export const removeAllToCart: ActionCreator<NewType> = cartItems => {
 // 개별 장바구니 제품 제거 함수
 export const removeItem: ActionCreator<NewType> = cartItems => {
   return (dispatch: Dispatch): Action => {
-    console.log('removeItemCartItems',cartItems)
+    console.log('removeItemCartItems',cartItems.id)
       return dispatch({
         type: CartActionTypes.REMOVE_FROM_ITEM, 
         payload: cartItems.id
