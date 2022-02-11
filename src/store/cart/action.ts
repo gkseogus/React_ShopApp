@@ -60,7 +60,7 @@ export const removeItem: ActionCreator<NewType> = cartItems => {
   return (dispatch: Dispatch): Action => {
       return dispatch({
         type: CartActionTypes.REMOVE_FROM_ITEM, 
-        payload: cartItems 
+        payload: cartItems.id
       });
   };
 }
