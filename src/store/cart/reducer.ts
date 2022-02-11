@@ -42,8 +42,16 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
         loading: state.loading,
         data: {
           ...state.data,
-          id: state.data.id.filter(idd => idd === action.payload),
-          items: state.data.items.filter(itemm => itemm === action.payload)
+          id: state.data.id.filter(idd => {
+            // idd(state.data.id), action.payload 값이 서로 다르므로 filter 조건은 false
+            // state.data.id 객체는 모두 필터됨
+            return idd.id === action.payload
+            }
+          ),
+          items: state.data.items.filter(itemm => {
+            return itemm.id === action.payload
+            }
+          )
         }
       };
     }
@@ -54,11 +62,23 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
         loading: state.loading,
         data:{
           ...state.data,
-          id: state.data.id.filter(idd => idd === action.payload),
-          items: state.data.items.filter(items => items !== action.payload.id)
+          id: state.data.id.filter(idd => {
+            console.log('idd',idd.id)
+            console.log('action.payload',action.payload)
+            console.log('action.payload.id',action.payload[0].id)
+            console.log('state.data.id',state.data.id)
+            // 현재 0번째 위치한 id 값을 가진 데이터만 배열에서 삭제 x
+            return idd.id === action.payload[0].id 
+            }
+          ),
+          items: state.data.id.filter(itemm => {
+            return itemm.id === action.payload[0].id 
+            }
+          )
         }
       }
     }
+    
     default: {
       return state;
     }
