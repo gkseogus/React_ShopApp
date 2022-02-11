@@ -62,17 +62,40 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
         loading: state.loading,
         data:{
           ...state.data,
+          // eslint-disable-next-line array-callback-return
           id: state.data.id.filter(idd => {
-            console.log('idd',idd.id)
-            console.log('action.payload',action.payload)
-            console.log('action.payload.id',action.payload[0].id)
-            console.log('state.data.id',state.data.id)
-            // 현재 0번째 위치한 id 값을 가진 데이터만 배열에서 삭제 x
-            return idd.id === action.payload[0].id 
+            console.log('idd.id',idd.id)
+            // console.log('action.payload',action.payload)
+            // console.log('action.payload.id',action.payload[0].id)
+            // console.log('state.data.id',state.data.id)
+
+            for(let i=0; i<state.data.id.length; i++){
+              if(idd.id === action.payload[i].id ){
+                console.log('ddd',action.payload[i].id)
+                return idd.id !== action.payload[i].id 
+              }
+              else{
+                console.log('ddd2',action.payload[i].id)
+                return idd.id !== action.payload[i].id 
+              }
+            }
+            // 현재 0번째 위치한 id 값을 가진 데이터만 제외하고 나머지 값만 배열에서 삭제한다.
+            // return idd.id === action.payload[0].id 
             }
           ),
+
+          // eslint-disable-next-line array-callback-return
           items: state.data.id.filter(itemm => {
-            return itemm.id === action.payload[0].id 
+            for(let i=0; i<state.data.id.length; i++){
+              if(itemm.id === action.payload[i].id ){
+                console.log('ttt',action.payload[i].id)
+                return itemm.id !== action.payload[i].id 
+              }
+              else{
+                console.log('ttt2',action.payload[i].id)
+                return itemm.id !== action.payload[i].id 
+              }
+            }
             }
           )
         }
@@ -84,5 +107,6 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
     }
   }
 };
+
 
 export { reducer as cartReducer };
