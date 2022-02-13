@@ -1,7 +1,6 @@
 import { Inventory } from "../inventory/types";
 
 export interface Cart {
-  id: Inventory[];
   items: Inventory[];
 }
 
