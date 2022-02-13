@@ -59,8 +59,6 @@ type AllProps = propsFromState;
 
 // children을 통해 컴포넌트 태그의 자식 컴포넌트 혹은 태그로 들어오는 값을 받을수 있다.
 const Navbar: React.FC<AllProps> = ({ 
-  // data는 원래 빈 배열객체, id = 0
-  // ㄴ cart 리덕스에 초기값이 정의 되어있다.
   data, 
   children }) => {
     // console.log('navBarData',data)
