@@ -56,13 +56,10 @@ export const removeAllToCart: ActionCreator<NewType> = cartItems => {
   };
 };
 
-// 개별 장바구니 제품 제거 함수
+// 개별 장바구니 제품 제거 함수 (addToCart와 동일하게 데이터 객체를 하나 씩 받음)
 export const removeItem: ActionCreator<NewType> = cartItem => {
   return (dispatch: Dispatch): Action => {
-    // console.log('removeItemCartItems',cartItems.items)
-    // console.log('removeItemCartItems2',cartItems.id)
-    // console.log('removeItemCartItems3',cartItems)
-    console.log(cartItem)
+    console.log('removeItemCartItem',cartItem)
       return dispatch({
         type: CartActionTypes.REMOVE_FROM_ITEM, 
         payload: cartItem

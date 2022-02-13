@@ -46,16 +46,20 @@ const HomePage: React.FC<AllProps> = ({data,fetchRequest}) => {
   }, [fetchRequest]);
   
   // newData가 false면 상품을 안 보여줌
-  const [newData, setnewData] = useState(true);
-  const [searchKeyword, setSearchKeyword] = useState('') // UPDATED
+  const [newData, setNewData] = useState(true);
+
+  // form에 받는 문자타입을 하나의 상태로 보관
+  const [searchKeyword, setSearchKeyword] = useState('') 
 
   const resultData = () => {
-    setnewData(true)
+    setNewData(true)
   }
 
   const removeData = () => {
-    setnewData(false)
+    setNewData(false)
   }
+
+  // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
   const handleSubmit = (event:any) => {
     event.preventDefault();
   }
@@ -64,11 +68,16 @@ const HomePage: React.FC<AllProps> = ({data,fetchRequest}) => {
     <Container>
       <ProductListItems>
         <form onSubmit={handleSubmit}>
+          {/* 타이핑이 되는 문자에 따라 setSearchKeyword로 통해 searchKeyword 값을 e.target.value로 갱신 */}
           <input value={searchKeyword}  onChange={e => setSearchKeyword(e.target.value)} type='inputText' name='inputText'  />
           <button onClick={resultData}>전체 상품출력</button>
           <button onClick={removeData}>전체 상품삭제</button>
         {
-          data.filter(v => v.name.toLowerCase().includes(searchKeyword.toLowerCase())).map(item => { // UPDATED
+          // toLowerCase: 데이터에 대소문자가 섞여 있기에 문자열 모두 소문자로 변환
+          // includes를 통해 searchKeyword 값 안에 대문자가 있는지 확인
+          // 갱신된 searchKeyword 값안에 대문자가 있으면 소문자로 변경
+          // input에서 타이핑할때마다 searchKeyword의 값이 바뀌고 이 값을 기준으로 data에서 filter해준다.
+          data.filter(item => item.name.toLowerCase().includes(searchKeyword.toLowerCase())).map(item => {
           if(newData === true){
               return <ProductItem item={item} />; // 실질적으로 사이트에 출력되는 컴포넌트 
           }

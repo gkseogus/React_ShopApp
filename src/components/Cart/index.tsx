@@ -69,10 +69,6 @@ const CartListItemName = styled.p`
 const CartListItemPrice = styled.p`
 `;
 
-interface propsFromComponent {
-  item: Inventory;
-}
-
 interface propsFromState {
   cartItems: Cart;
   removeAllToCart: (cartItems: any) => any;
@@ -88,12 +84,13 @@ const CartComponent: React.FC<AllProps> = ({ cartItems, removeAllToCart, removeI
     removeAllToCart(cartItems);
   };
 
-  // 개별 아이템 삭제 함수
+  // 개별 아이템 삭제 함수 (파라미터는 cartItem)
   const RemoveItem = (cartItem: any) => {
     removeItem(cartItem);
   };
 
   // console.log('cartItems',cartItems);
+  // console.log('cartItem',cartItem);
 
   return (
     <CartContainer>
@@ -124,7 +121,7 @@ const mapStateToProps = ({ cart }: ApplicationState) => ({
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
     removeAllToCart: (cartItems: any) => dispatch(removeAllToCart(cartItems)),
-    removeItem: (cartItems: any) => dispatch(removeItem(cartItems))
+    removeItem: (cartItem: any) => dispatch(removeItem(cartItem))
   };
 };
 
