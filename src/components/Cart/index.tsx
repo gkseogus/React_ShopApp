@@ -6,6 +6,7 @@ import { removeAllToCart, removeItem } from "../../store/cart/action";
 import { ThunkDispatch } from "redux-thunk";
 import { ApplicationState } from "../../store";
 import { Cart } from "../../store/cart/types";
+import { Inventory } from "../../store/inventory/types";
 
 
 // cart 안의 styled.div 박스 설정
@@ -68,25 +69,31 @@ const CartListItemName = styled.p`
 const CartListItemPrice = styled.p`
 `;
 
+interface propsFromComponent {
+  item: Inventory;
+}
+
 interface propsFromState {
   cartItems: Cart;
   removeAllToCart: (cartItems: any) => any;
-  removeItem: (cartItems: any) => any;
+  removeItem: (cartItem: any) => any;
 }
 
 type AllProps = propsFromState;
 
 const CartComponent: React.FC<AllProps> = ({ cartItems, removeAllToCart, removeItem }) => {
+  
   // 모든 아이템 삭제 함수
   const RemoveAllItemToCart = (cartItems: any) => {
     removeAllToCart(cartItems);
   };
 
   // 개별 아이템 삭제 함수
-  const RemoveItem = (cartItems: any) => {
-    removeItem(cartItems);
+  const RemoveItem = (cartItem: any) => {
+    removeItem(cartItem);
   };
-  console.log('cartItems',cartItems);
+
+  // console.log('cartItems',cartItems);
 
   return (
     <CartContainer>
@@ -101,7 +108,7 @@ const CartComponent: React.FC<AllProps> = ({ cartItems, removeAllToCart, removeI
               <CartListItemImage src={item.image} />
               <CartListItemName>{item.name}</CartListItemName>
               <CartListItemPrice>{item.price}</CartListItemPrice>
-              <RemoveCart onClick={() => RemoveItem(cartItems)}>Remove To item</RemoveCart>
+              <RemoveCart onClick={() => RemoveItem(item)}>Remove To item</RemoveCart>
             </CartListItemDiv>
           );
         })}
