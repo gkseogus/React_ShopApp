@@ -55,16 +55,16 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
         loading: state.loading,
         data: {
           ...state.data,
-          // findIndex를 통해 items의 id와 payload의 id가 같으면 그 요소의 인덱스 값을 반환 
-          // ㄴ 즉 사용자가 클릭한 payload의 id와 store안의 여러 item중 같은 id가 있는지 확인하고 같으면 해당하는 인덱스를 반환
-          // k -> k란 값이 없으면 에러 발생
+          // findIndex를 통해 items의 id와 payload의 id가 같으면 그 요소의 첫번째 인덱스 값을 반환 (하나만 지우기 위함)
+             // ㄴ 즉 사용자가 클릭한 payload의 id와 store안의 여러 item중 같은 id가 있는지 확인하고 같으면 해당하는 첫번째 인덱스를 반환
           // i(store에 있던 item의 index)가 findIndex로 얻은 payload의 인덱스 값과 다르면 filter 작동 x 
-          // ㄴ 같으면 그 값만 배열의 요소에서 삭제  
+             // ㄴ 같으면 그 값만 배열의 요소에서 삭제  
+          // k -> k란 값이 없으면 에러 발생
           items: state.data.items.filter((k, i) => i !== state.data.items.findIndex(v => v.id === action.payload.id))
 
           // ex
-          // 1. [0,1,2,3,4] 에서 0,1,4의 id가 같으면 0,1,4의 요소만 추출
-          // 2. [0,1,4]의 요소에서 조건문이 F인 요소만 삭제
+          // 1. [0,1,2,3,4] 에서 0,1,4의 id가 같다고 가정하면 findIndex를 통해 0,1,4에서 0의 인덱스 값만 추출
+          // 2. 0의 인덱스 값이 조건문에서 F면 그 요소 삭제
         }
       }
     }
