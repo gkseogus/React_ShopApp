@@ -31,6 +31,7 @@ type NewType = ThunkAction<void, ApplicationState, Inventory, Action<string>>;
 // 장바구니 제품 추가 함수
 export const addToCart: ActionCreator<NewType> = item => {
   return (dispatch: Dispatch): Action => {
+    // console.log('eewew',item)
     try {
       return dispatch({
         type: CartActionTypes.ADD_TO_CART, // 장바구니 제품 추가
@@ -56,12 +57,15 @@ export const removeAllToCart: ActionCreator<NewType> = cartItems => {
 };
 
 // 개별 장바구니 제품 제거 함수
-export const removeItem: ActionCreator<NewType> = cartItems => {
+export const removeItem: ActionCreator<NewType> = cartItem => {
   return (dispatch: Dispatch): Action => {
-    console.log('removeItemCartItems',cartItems.id)
+    // console.log('removeItemCartItems',cartItems.items)
+    // console.log('removeItemCartItems2',cartItems.id)
+    // console.log('removeItemCartItems3',cartItems)
+    console.log(cartItem)
       return dispatch({
         type: CartActionTypes.REMOVE_FROM_ITEM, 
-        payload: cartItems.id
+        payload: cartItem
       });
   };
 }
