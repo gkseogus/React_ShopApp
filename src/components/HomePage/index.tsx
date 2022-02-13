@@ -47,6 +47,7 @@ const HomePage: React.FC<AllProps> = ({data,fetchRequest}) => {
   
   // newData가 false면 상품을 안 보여줌
   const [newData, setnewData] = useState(true);
+  const [searchKeyword, setSearchKeyword] = useState('') // UPDATED
 
   const resultData = () => {
     setnewData(true)
@@ -63,11 +64,11 @@ const HomePage: React.FC<AllProps> = ({data,fetchRequest}) => {
     <Container>
       <ProductListItems>
         <form onSubmit={handleSubmit}>
-          <input type='inputText' name='inputText'  />
+          <input value={searchKeyword}  onChange={e => setSearchKeyword(e.target.value)} type='inputText' name='inputText'  />
           <button onClick={resultData}>전체 상품출력</button>
           <button onClick={removeData}>전체 상품삭제</button>
         {
-          data.map(item => {
+          data.filter(v => v.name.toLowerCase().includes(searchKeyword.toLowerCase())).map(item => { // UPDATED
           if(newData === true){
               return <ProductItem item={item} />; // 실질적으로 사이트에 출력되는 컴포넌트 
           }
