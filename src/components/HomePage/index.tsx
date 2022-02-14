@@ -39,7 +39,7 @@ interface propsFromDispatch {
 type AllProps = PropsFromState & propsFromDispatch;
 
 const HomePage: React.FC<AllProps> = ({data,fetchRequest}) => {
-   console.log('homePageData:',data);
+  //  console.log('homePageData:',data);
   useEffect(() => { 
     console.log('useEffect Check');
     fetchRequest();
