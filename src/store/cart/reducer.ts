@@ -60,8 +60,8 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
           // state.items에서 해당하는 첫번째 인덱스를 반환
           // i(store에 있던 item의 index)가 findIndex로 얻은 payload의 인덱스 값과 다르면 filter 작동 x 
              // ㄴ 같으면 그 값만 배열의 요소에서 삭제  
-          // 이때 v는 private 
-          items: state.data.items.filter((_v, i) => i !== state.data.items.findIndex(v => v.id === action.payload.id))
+          // filter는 state.data.items의 배열을 판별하고 그때 배열의 요소는 k
+          items: state.data.items.filter((_k, i) => i !== state.data.items.findIndex(v => v.id === action.payload.id))
 
           // ex
           // 1. [0,1,2,3,4] 에서 0,1,4의 id가 같다고 가정하면 findIndex를 통해 0,1,4에서 0의 인덱스 값만 추출
