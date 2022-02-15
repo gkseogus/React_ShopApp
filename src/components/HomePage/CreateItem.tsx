@@ -61,6 +61,11 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
                 value={image}
                 onChange={e => setImage(e.target.value)}
             />            
+            <input
+                placeholder="image"
+                value={image}
+                onChange={e => setImage(e.target.value)}
+            />       
             &nbsp;&nbsp;
             <input
                 value={description}
