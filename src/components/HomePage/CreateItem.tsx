@@ -44,6 +44,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
     // onChange으로 input값의 내용 변경 감지
     return (
         <div  style={style}>
+            <form>
             <input
                 value={name}
                 onChange={e => setName(e.target.value)}
@@ -61,7 +62,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
                 accept="image/png, image/jpeg"
                 placeholder="image"
                 //@ts-ignore
-                onChange={e => setImage(URL.createObjectURL(e.target.files[0]))}
+                onChange={e => setImage(URL.createObjectURL(e.target.files[0]))} // ignore로 인해 코드오류 무시
             />       
             <input
                 placeholder="image"
@@ -88,6 +89,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
             />           
              &nbsp;&nbsp;
             <button onClick={onSubmit} >추가</button>
+            </form>
         </div>
     );
 }
