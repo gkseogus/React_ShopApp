@@ -1,4 +1,4 @@
-import { InventoryActionTypes } from "./types";
+import { Inventory, InventoryActionTypes } from "./types";
 
 import { ActionCreator, Action, Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
@@ -13,6 +13,8 @@ export type AppThunk = ActionCreator<
    null, Action<string>
   >
 >;
+
+type NewType = ThunkAction<void, ApplicationState, Inventory, Action<string>>;
 
 // mockdata를 받아와 reducer에게 데이터를 전송
 export const fetchRequest: AppThunk = () => {
@@ -30,3 +32,13 @@ export const fetchRequest: AppThunk = () => {
     }
   };
 };
+
+// 상품 추가
+export const createItem: ActionCreator<NewType> = item => {
+  return (dispatch: Dispatch): Action => {
+      return dispatch({
+        type: InventoryActionTypes.CREATE_ITEM,
+        payload: item
+      });
+  };
+}
