@@ -11,6 +11,8 @@ export type AppThunk = ThunkAction<
   Action<string>
 >;
 
+type NewType = ThunkAction<void, ApplicationState, Inventory, Action<string>>;
+
 export const fetchCartRequest: AppThunk = () => {
   return (dispatch: Dispatch, state: ApplicationState): Action => {
     try {
@@ -25,8 +27,6 @@ export const fetchCartRequest: AppThunk = () => {
     }
   };
 };
-
-type NewType = ThunkAction<void, ApplicationState, Inventory, Action<string>>;
 
 // 장바구니 제품 추가 함수
 export const addToCart: ActionCreator<NewType> = item => {
