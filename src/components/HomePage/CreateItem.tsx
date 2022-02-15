@@ -41,9 +41,15 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
         setCurrentInventory('')
     }
 
+     // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
+    }
+
     // onChange으로 input값의 내용 변경 감지
     return (
         <div  style={style}>
+            <form onSubmit={handleSubmit}>
             <input
                 value={name}
                 onChange={e => setName(e.target.value)}
@@ -88,6 +94,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
             />           
              &nbsp;&nbsp;
             <button onClick={onSubmit} >추가</button>
+            </form>
         </div>
     );
 }
