@@ -44,7 +44,6 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
     // onChange으로 input값의 내용 변경 감지
     return (
         <div  style={style}>
-            <form>
             <input
                 value={name}
                 onChange={e => setName(e.target.value)}
@@ -89,7 +88,6 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
             />           
              &nbsp;&nbsp;
             <button onClick={onSubmit} >추가</button>
-            </form>
         </div>
     );
 }
