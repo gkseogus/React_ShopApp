@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import { InventoryActionTypes, InventoryState } from "./types";
+import { Inventory, InventoryActionTypes,  InventoryState } from "./types";
 
 export const initialState: InventoryState = {
   data: [],
@@ -23,9 +23,16 @@ const reducer: Reducer<InventoryState> = (state = initialState, action) => {
     case InventoryActionTypes.FETCH_ERROR: {
       return { ...state, loading: false, errors: action.payload };
     }
+    case InventoryActionTypes.CREATE_ITEM: {
+      const newItem: Inventory = {
+        ...action.payload,
+        id: Math.random().toString() // id는 임의의 랜덤 문자열
+      }
+      return { ...state, data: [newItem, ...state.data] }
+    }
     default: {
       return state;
-    } 
+    }
   }
 };
 
