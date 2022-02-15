@@ -8,7 +8,8 @@ export interface Inventory {
   currentInventory: number;
 }
 
-export type InventoryCreate = Omit<Inventory, "id"> // id는 자동 생상할거라서 ID를 뺀값만 생성할때 사용
+// Omit: 생략, id는 자동 생상할거라서 ID를 뺀값만 생성할때 사용
+export type InventoryCreate = Omit<Inventory, "id"> 
 
 // 전송 가능한 액션 유형
 export enum InventoryActionTypes {
