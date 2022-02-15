@@ -21,10 +21,18 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
         border: '3px solid black'
     }
 
+    // return 되기 전 onSubmit으로 아래 코드 실행
     const onSubmit = () => {
+        // name, price 값이 없을 시 
+        if( !name || !price ) {
+            return alert("이름과 가격은 필수 기입")
+        }
+
+        // 데이터를 한번에 모아서 전송
         onCreate({
             name,price, image, description, brand, currentInventory:Number(currentInventory)
         })
+
         setName('')
         setPrice('')
         setImage('')
@@ -33,6 +41,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
         setCurrentInventory('')
     }
 
+    // onChange으로 input값의 내용 변경 감지
     return (
         <div  style={style}>
             <input
@@ -47,26 +56,30 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
                 placeholder="price"
             />
             &nbsp;&nbsp;
-            <input
+            <input type="file" accept='.jpg, .png'
                 placeholder="image"
                 value={image}
                 onChange={e => setImage(e.target.value)}
-            />            &nbsp;&nbsp;
+            />            
+            &nbsp;&nbsp;
             <input
                 value={description}
                 onChange={e => setDescription(e.target.value)}
                 placeholder="description"
-            />            &nbsp;&nbsp;
+            />           
+             &nbsp;&nbsp;
             <input
                 value={brand}
                 onChange={e => setBrand(e.target.value)}
                 placeholder="brand"
-            />            &nbsp;&nbsp;
+            />           
+             &nbsp;&nbsp;
             <input
                 value={currentInventory}
                 onChange={e => setCurrentInventory(e.target.value)}
                 placeholder="currentInventory"
-            />            &nbsp;&nbsp;
+            />           
+             &nbsp;&nbsp;
             <button onClick={onSubmit} >추가</button>
         </div>
     );

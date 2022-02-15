@@ -24,6 +24,8 @@ const reducer: Reducer<InventoryState> = (state = initialState, action) => {
       return { ...state, loading: false, errors: action.payload };
     }
     case InventoryActionTypes.CREATE_ITEM: {
+      // console.log('action',action.payload)
+      // console.log('state.data',state.data)
       const newItem: Inventory = {
         ...action.payload,
         id: Math.random().toString() // id는 임의의 랜덤 문자열
