@@ -56,11 +56,13 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
                 placeholder="price"
             />
             &nbsp;&nbsp;
-            <input type="file" accept='.jpg, .png'
+            <input
+                type='file'
+                accept="image/png, image/jpeg"
                 placeholder="image"
-                value={image}
-                onChange={e => setImage(e.target.value)}
-            />            
+                //@ts-ignore
+                onChange={e => setImage(URL.createObjectURL(e.target.files[0]))}
+            />       
             <input
                 placeholder="image"
                 value={image}
