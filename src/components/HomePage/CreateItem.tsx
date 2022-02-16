@@ -8,17 +8,19 @@ interface CartItemsProps {
 
 const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
 
+    // 여러 state를 한 곳에 모아 보관
     const [inputData, setInputData] = useState({
         name: '',
         price: '',
-        image: '',
         description: '',
         brand: '',
         currentInventory: '',
     });
 
-    const [image2, setImage] = useState('')
+    // file 타입인 input의 상태만 따로 보관
+    const [FileImage, setImage] = useState('')
 
+    // 각 원본 상태를 복사한 뒤 그 상태를 target.value값으로 업데이트
     const changeInput = (e :any) => {
         setInputData({
             ...inputData,
@@ -40,19 +42,17 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
             return alert("이름과 가격은 필수 기입")
         }
         else {
-            console.log('dd',inputData)
+            console.log('inputData Check:',inputData)
         }
 
         // 데이터를 한번에 모아서 전송
         onCreate({
-            name:String(inputData.name),price:String(inputData.price), image:String(inputData.image), description:String(inputData.description),
-            brand:String(inputData.brand), currentInventory:Number(inputData.currentInventory), 
+            name:String(inputData.name),price:String(inputData.price), image:String(FileImage), description:String(inputData.description),
+            brand:String(inputData.brand), currentInventory:Number(inputData.currentInventory)
         })
-
-        setImage('')
     }
 
-     // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
+    // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
     const handleSubmit = (event: any) => {
         event.preventDefault();
     }
@@ -85,22 +85,11 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
                 ItemFile:
             <input
                 type='file'
-                name= {inputData.image}
                 accept="image/png, image/jpeg"
                 placeholder="imageFile"
                 //@ts-ignore
                 onChange={e => setImage(URL.createObjectURL(e.target.files[0]))} // ignore로 인해 코드오류 무시
             />     
-            &nbsp;&nbsp;
-            <br/>
-            </label>
-            <label>
-                ItemImage:  
-            <input  name="image"
-                value={inputData.image}
-                onChange={changeInput}
-                placeholder="image"
-            />       
             &nbsp;&nbsp;
             <br/>
             </label>
