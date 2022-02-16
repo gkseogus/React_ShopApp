@@ -5,7 +5,6 @@ interface CartItemsProps {
     onCreate: (data:InventoryCreate) => void
 }
 
-
 const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
 
     // 여러 state를 한 곳에 모아 보관
@@ -21,7 +20,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
     const [FileImage, setImage] = useState('')
 
     // 각 원본 상태를 복사한 뒤 그 상태를 target.value값으로 업데이트
-    const changeInput = (e :any) => {
+    const changeInput = (e: any) => {
         setInputData({
             ...inputData,
             // 각 input의 name을 조회
@@ -35,7 +34,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
         padding: '10px',
         border: '3px solid black'
     }
-
+    
     // return 되기 전 onSubmit으로 아래 코드 실행
     const onSubmit = () => {
         // name, price 값이 없을 시 
@@ -58,10 +57,17 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
         e.preventDefault();
     }
 
+    // input reset
+    const handleClear = () => { 
+        setInputData({
+            ...inputData, name: "", price: "", description: "", brand: "", currentInventory: ""
+        })
+    };
+
     // onChange으로 input값의 내용 변경 감지, 감지하면 changeInput 함수가 실행 
     return (
         <div  style={style}>
-            <form method="POST" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
             <label>
                 ItemName:
             <input  name="name"
@@ -125,6 +131,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
             <br/>
             </label>
             <button onClick={onSubmit} >추가</button>
+            <button onClick={handleClear} >리셋</button>
             </form>
         </div>
     );
