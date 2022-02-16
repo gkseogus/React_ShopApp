@@ -5,14 +5,26 @@ interface CartItemsProps {
     onCreate: (data:InventoryCreate) => void
 }
 
+
 const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
 
-    const [name, setName] = useState('')
-    const [price, setPrice] = useState('')
-    const [image, setImage] = useState('')
-    const [description, setDescription] = useState('')
-    const [brand, setBrand] = useState('')
-    const [currentInventory, setCurrentInventory] = useState('')
+    const [inputData, setInputData] = useState({
+        name: '',
+        price: '',
+        image: '',
+        description: '',
+        brand: '',
+        currentInventory: '',
+    });
+
+    const [image2, setImage] = useState('')
+
+    const changeInput = (e :any) => {
+        setInputData({
+            ...inputData,
+            [e.target.name]: e.target.value
+        })
+    }
 
     const style = {
         width: '600px',
@@ -24,21 +36,20 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
     // return 되기 전 onSubmit으로 아래 코드 실행
     const onSubmit = () => {
         // name, price 값이 없을 시 
-        if( !name || !price ) {
+        if( !inputData.name || !inputData.price ) {
             return alert("이름과 가격은 필수 기입")
+        }
+        else {
+            console.log('dd',inputData)
         }
 
         // 데이터를 한번에 모아서 전송
         onCreate({
-            name,price, image, description, brand, currentInventory:Number(currentInventory)
+            name:String(inputData.name),price:String(inputData.price), image:String(inputData.image), description:String(inputData.description),
+            brand:String(inputData.brand), currentInventory:Number(inputData.currentInventory), 
         })
 
-        setName('')
-        setPrice('')
         setImage('')
-        setDescription('')
-        setBrand('')
-        setCurrentInventory('')
     }
 
      // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
@@ -50,49 +61,79 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
     return (
         <div  style={style}>
             <form onSubmit={handleSubmit}>
-            <input
-                value={name}
-                onChange={e => setName(e.target.value)}
+            <label>
+                ItemName:
+            <input  name="name"
+                value={inputData.name}
+                onChange={changeInput}
                 placeholder="name"
             />
+            <br/>
+            </label>
             &nbsp;&nbsp;
-            <input
-                value={price}
-                onChange={e => setPrice(e.target.value)}
+            <label>
+                ItemPrice:
+            <input  name="price"
+                value={inputData.price}
+                onChange={changeInput}
                 placeholder="price"
             />
             &nbsp;&nbsp;
+            <br/>
+            </label>
+            <label>
+                ItemFile:
             <input
                 type='file'
+                name= {inputData.image}
                 accept="image/png, image/jpeg"
-                placeholder="image"
+                placeholder="imageFile"
                 //@ts-ignore
                 onChange={e => setImage(URL.createObjectURL(e.target.files[0]))} // ignore로 인해 코드오류 무시
-            />       
-            <input
+            />     
+            &nbsp;&nbsp;
+            <br/>
+            </label>
+            <label>
+                ItemImage:  
+            <input  name="image"
+                value={inputData.image}
+                onChange={changeInput}
                 placeholder="image"
-                value={image}
-                onChange={e => setImage(e.target.value)}
             />       
             &nbsp;&nbsp;
-            <input
-                value={description}
-                onChange={e => setDescription(e.target.value)}
+            <br/>
+            </label>
+            <label>
+                ItemDescription:              
+            <input  name="description"
+                value={inputData.description}
+                onChange={changeInput}
                 placeholder="description"
             />           
              &nbsp;&nbsp;
-            <input
-                value={brand}
-                onChange={e => setBrand(e.target.value)}
+            <br/>
+            </label>
+            <label>
+                ItemBrand:  
+            <input  name="brand"
+                value={inputData.brand}
+                onChange={changeInput}
                 placeholder="brand"
             />           
              &nbsp;&nbsp;
-            <input
-                value={currentInventory}
-                onChange={e => setCurrentInventory(e.target.value)}
+            <br/>
+            </label>
+            <label>
+                ItemCurrentInventory:  
+            <input  name="currentInventory"
+                value={inputData.currentInventory}
+                onChange={changeInput}
                 placeholder="currentInventory"
             />           
              &nbsp;&nbsp;
+            <br/>
+            </label>
             <button onClick={onSubmit} >추가</button>
             </form>
         </div>
