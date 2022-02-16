@@ -24,6 +24,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
     const changeInput = (e :any) => {
         setInputData({
             ...inputData,
+            // 각 input의 name을 조회
             [e.target.name]: e.target.value
         })
     }
@@ -57,7 +58,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
         event.preventDefault();
     }
 
-    // onChange으로 input값의 내용 변경 감지
+    // onChange으로 input값의 내용 변경 감지, 감지하면 changeInput 함수가 실행 
     return (
         <div  style={style}>
             <form onSubmit={handleSubmit}>
