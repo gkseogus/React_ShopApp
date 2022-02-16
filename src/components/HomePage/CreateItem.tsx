@@ -28,19 +28,6 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
             [e.target.name]: e.target.value
         })
     }
-    const [words, setWords] = useState([]);
-
-    // // 의존성 배열로 인해 최초 1회 재렌더링 될때 useEffect 실행 
-    // useEffect(() => {
-    //   console.log("Run useEffect")
-    //   fetch("https://api.apispreadsheets.com/data/MnVTQml3sWkW5lfS/")
-    //   .then(res => {
-    //     return res.json()
-    //   })
-    //   .then(data11 => {
-    //     setWords(data11)
-    //   })
-    // }, [])
 
     const style = {
         width: '600px',
@@ -66,28 +53,9 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
         })
     }
 
-    // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
     const handleSubmit = async (e:any) => {
+        // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
         e.preventDefault();
-        try {
-            const response = await fetch(
-                "https://api.apispreadsheets.com/data/MnVTQml3sWkW5lfS/", {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "applicationjson",
-                },
-                body: JSON.stringify([
-                    [inputData.name,inputData.price,inputData.description,
-                    inputData.brand, inputData.currentInventory.toLocaleString()]
-                ])
-            }
-          )
-          await response.json();
-          setInputData({...inputData, name: "", price: "", description: "", brand: "", currentInventory: ""});
-        }
-        catch (err) {
-            console.log("err",err)
-        }
     }
 
     // onChange으로 input값의 내용 변경 감지, 감지하면 changeInput 함수가 실행 
