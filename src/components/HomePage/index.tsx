@@ -70,7 +70,7 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
         // default로 GET 메소드를 사용
         // await를 통해 비동기 작업의 결과값을 얻을 때까지 기다려준다. -> 동기식
         const res = await fetch(
-            "https://api.apispreadsheets.com/data/0nZv1sgTtqdX5TiT/"
+            "https://api.apispreadsheets.com/data/3GDfdpRgT7K8z7Cs/"
         );
         // API를 호출한 후 응답 객체를 받으며 .json() 메서드로 파싱한 json값을 리턴
         const dataData = await res.json();
@@ -101,9 +101,9 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
             // includes를 통해 검색 대상인 값에 검색할 값이 있는지 확인
             // item.name.toLowerCase() -> 검색 대상인 값 
             // searchKeyword.toLowerCase() -> 검색할 값
-            data.filter(item => item.name.toLowerCase().includes(searchKeyword.toLowerCase())).map(item => {
+            data.filter(item => item.name.toLowerCase().includes(searchKeyword.toLowerCase())).map((item, index) => {
               if (newData === true) {
-                return <ProductItem item={item} />; // 실질적으로 사이트에 출력되는 컴포넌트 
+                return <ProductItem key={index} item={item} />; // 실질적으로 사이트에 출력되는 컴포넌트 
               }
               return newData
             })
