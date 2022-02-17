@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
@@ -43,11 +43,11 @@ type AllProps = PropsFromState & propsFromDispatch;
 const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
   //  console.log('homePageData:',data);
 
-  // newData가 false면 상품을 안 보여줌
-  const [newData, setNewData] = useState(true);
-
   // form에 받는 문자타입을 하나의 상태로 보관
   const [searchKeyword, setSearchKeyword] = useState('')
+
+  // newData가 false면 상품을 안 보여줌
+  const [newData, setNewData] = useState(true);
 
   const resultData = () => {
     setNewData(true)
@@ -57,10 +57,45 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
     setNewData(false)
   }
 
-  // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event:any) => {
+    // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
     event.preventDefault();
   }
+
+    // Api 데이터의 상태를 보관
+    const [ApiData, setData] = useState([
+      {
+      brand: "Jason Bourne",
+      currentInventory: 1,
+      description: "This is a Test Description",
+      id: "",
+      image: "",
+      name: "",
+      price: 0,
+      }
+    ]);
+
+  const getData = async () => {
+    try{
+        // fetch로 해당 API를 호출하고 응답 데이터를 받아옴(비동기 요청)
+        // default로 GET 메소드를 사용
+        // await를 통해 비동기 작업의 결과값을 얻을 때까지 기다려준다. -> 동기식
+        const res = await fetch(
+            "https://api.apispreadsheets.com/data/PfulHnibKg7DEv8l/"
+        );
+        // API를 호출한 후 응답 객체를 받으며 .json() 메서드로 파싱한 json값을 리턴
+        const dataData = await res.json();
+        console.log("API data",dataData.data);
+        setData(dataData.data);
+    } catch(err){
+        console.log('error:', err);
+    }
+  }
+
+  // 의존성배열 랜더링될때 최초 1회 useEffect 실행
+  useEffect(()=>{
+    getData();
+  }, [])
 
   return (
     <Container>
@@ -68,41 +103,40 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
         <form onSubmit={handleSubmit}>
           {/* 타이핑이 되는 문자에 따라 setSearchKeyword로 통해 searchKeyword 값을 e.target.value로 갱신 */}
           <input value={searchKeyword} onChange={e => setSearchKeyword(e.target.value)} type='inputText' name='inputText' />
-          {/* <input value={addKeyword}  onChange={e => setAddKeyword(e.target.value)} type='inputText' name='inputText'  /> */}
           <button onClick={resultData}>전체 상품출력</button>
           <button onClick={removeData}>전체 상품삭제</button>
         </form>
         <CreateItem onCreate={createItem} />
-        <div>
+        <div>         
           {
             // input에서 타이핑할때마다 searchKeyword의 값이 바뀌고 이 값을 기준으로 data에서 filter해준다.
-            // toLowerCase: 데이터에 대소문자가 섞여 있기에 문자열 모두 소문자로 변환
-            // 갱신된 searchKeyword 값안에 대문자가 있으면 소문자로 변경
             // includes를 통해 검색 대상인 값에 검색할 값이 있는지 확인
             // item.name.toLowerCase() -> 검색 대상인 값 
             // searchKeyword.toLowerCase() -> 검색할 값
-
-            data.filter(item => item.name.toLowerCase().includes(searchKeyword.toLowerCase())).map(item => {
+            data.filter(item => item.name.toLowerCase().includes(searchKeyword.toLowerCase())).map((item,index) => {
               if (newData === true) {
-                return <ProductItem item={item} />; // 실질적으로 사이트에 출력되는 컴포넌트 
+                return <ProductItem key={index} item={item} />; // 실질적으로 사이트에 출력되는 컴포넌트 
               }
               return newData
             })
           }
         </div>
-
+        {
+        // ApiData를 ProductItem의 item에 적용
+        ApiData.map((data,index)=>{
+            return <ProductItem key={index} item={data} />;
+        })
+        }
       </ProductListItems>
     </Container>
   );
 };
-
 
 const mapStateToProps = ({ inventory }: ApplicationState) => ({
   loading: inventory.loading,
   errors: inventory.errors,
   data: inventory.data
 });
-
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
