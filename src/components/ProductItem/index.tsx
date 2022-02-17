@@ -61,7 +61,7 @@ const AddToCart = styled.button`
 `;
 
 interface propsFromComponent {
-  item: Inventory;
+  item: any; // Inventory;
   addToCart: (item: any) => any;
 }
 
