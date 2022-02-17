@@ -23,7 +23,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
     const changeInput = (e: any) => {
         setInputData({
             ...inputData,
-            // 각 input의 name을 조회
+            // e.target.name 키를 가진 값을 value로 설정
             [e.target.name]: e.target.value
         })
         // console.log('test',e.target.name)
@@ -59,7 +59,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
     }
 
     // input reset
-    const handleClear = () => { 
+    const onReset = () => { 
         setInputData({
             ...inputData, name: "", price: "", description: "", brand: "", currentInventory: ""
         })
@@ -132,8 +132,8 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
              &nbsp;&nbsp;
             <br/>
             </label>
-            <button onClick={onSubmit} >추가</button>
-            <button onClick={handleClear} >리셋</button>
+            <button onClick={onSubmit}>추가</button>
+            <button onClick={onReset}>리셋</button>
             </form>
         </div>
     );
