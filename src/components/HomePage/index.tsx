@@ -42,7 +42,6 @@ type AllProps = PropsFromState & propsFromDispatch;
 
 const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
   //  console.log('homePageData:',data);
-
   // form에 받는 문자타입을 하나의 상태로 보관
   const [searchKeyword, setSearchKeyword] = useState('')
 
@@ -63,17 +62,7 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
   }
 
     // Api 데이터의 상태를 보관
-    const [ApiData, setData] = useState([
-      {
-      brand: "Jason Bourne",
-      currentInventory: 1,
-      description: "This is a Test Description",
-      id: "",
-      image: "",
-      name: "",
-      price: 0,
-      }
-    ]);
+    const [ApiData, setData] = useState([]);
 
   const getData = async () => {
     try{
@@ -81,18 +70,18 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
         // default로 GET 메소드를 사용
         // await를 통해 비동기 작업의 결과값을 얻을 때까지 기다려준다. -> 동기식
         const res = await fetch(
-            "https://api.apispreadsheets.com/data/PfulHnibKg7DEv8l/"
+            "https://api.apispreadsheets.com/data/0nZv1sgTtqdX5TiT/"
         );
         // API를 호출한 후 응답 객체를 받으며 .json() 메서드로 파싱한 json값을 리턴
         const dataData = await res.json();
-        console.log("API data",dataData.data);
+        console.log(dataData.data);
         setData(dataData.data);
     } catch(err){
         console.log('error:', err);
     }
   }
 
-  // 의존성배열 랜더링될때 최초 1회 useEffect 실행
+  // 의존성배열
   useEffect(()=>{
     getData();
   }, [])
@@ -107,26 +96,24 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
           <button onClick={removeData}>전체 상품삭제</button>
         </form>
         <CreateItem onCreate={createItem} />
-        <div>         
           {
             // input에서 타이핑할때마다 searchKeyword의 값이 바뀌고 이 값을 기준으로 data에서 filter해준다.
             // includes를 통해 검색 대상인 값에 검색할 값이 있는지 확인
             // item.name.toLowerCase() -> 검색 대상인 값 
             // searchKeyword.toLowerCase() -> 검색할 값
-            data.filter(item => item.name.toLowerCase().includes(searchKeyword.toLowerCase())).map((item,index) => {
+            data.filter(item => item.name.toLowerCase().includes(searchKeyword.toLowerCase())).map(item => {
               if (newData === true) {
-                return <ProductItem key={index} item={item} />; // 실질적으로 사이트에 출력되는 컴포넌트 
+                return <ProductItem item={item} />; // 실질적으로 사이트에 출력되는 컴포넌트 
               }
               return newData
             })
           }
-        </div>
-        {
-        // ApiData를 ProductItem의 item에 적용
-        ApiData.map((data,index)=>{
-            return <ProductItem key={index} item={data} />;
-        })
-        }
+          {
+            // ApiData를 ProductItem의 item에 적용
+            ApiData.map((data,index)=>{
+              return <ProductItem key={index} item={data} />;
+            })
+          }     
       </ProductListItems>
     </Container>
   );
