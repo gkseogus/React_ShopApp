@@ -26,6 +26,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
             // 각 input의 name을 조회
             [e.target.name]: e.target.value
         })
+        // console.log('test',e.target.name)
     }
 
     const style = {
@@ -96,7 +97,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
                 placeholder="imageFile"
                 //@ts-ignore
                 // 파일객체(e.target.files[0])를 새로운 url로 바꾸어 image File로 띄우기
-                onChange={e => setImage(URL.createObjectURL(e.target.files[0]))} // ignore로 인해 코드오류 무시
+                onChange={e => setImage(URL.createObjectURL(e.target.files[0]), console.log('image File',e.target.files[0]))} // ignore로 인해 코드오류 무시
             />     
             &nbsp;&nbsp;
             <br/>
