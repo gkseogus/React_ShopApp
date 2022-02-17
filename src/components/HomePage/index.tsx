@@ -62,7 +62,7 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
   }
 
     // Api 데이터의 상태를 보관
-    const [ApiData, setData] = useState([]);
+    const [ApiData, setApiData] = useState([]);
 
   const getData = async () => {
     try{
@@ -75,7 +75,7 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
         // API를 호출한 후 응답 객체를 받으며 .json() 메서드로 파싱한 json값을 리턴
         const dataData = await res.json();
         console.log(dataData.data);
-        setData(dataData.data);
+        setApiData(dataData.data);
     } catch(err){
         console.log('error:', err);
     }
