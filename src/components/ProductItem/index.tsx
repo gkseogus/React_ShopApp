@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { Inventory } from "../../store/inventory/types";
 import { addToCart } from "../../store/cart/action";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
@@ -75,7 +74,7 @@ const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
   return (
     <ProductContainer>
       <ProductFigure>
-        <ProductImage src={item.image} />
+        <ProductImage src={item.image} /> {/*src={`data/jpeg;base64,${data}`}*/}
       </ProductFigure>
       <ProductHeader>{item.name}</ProductHeader>
       <ProductDescriptionDiv>
