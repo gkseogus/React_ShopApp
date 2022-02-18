@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import { METHODS } from 'http';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { InventoryCreate } from '../../store/inventory/types';
 
 interface CartItemsProps {
@@ -11,9 +13,11 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
     const [inputData, setInputData] = useState({
         name: '',
         price: '',
+        image: '',
         description: '',
         brand: '',
         currentInventory: '',
+        id: ''
     });
 
     // file 타입인 input의 상태만 따로 보관
@@ -53,9 +57,27 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
         })
     }
 
+    const { name, price, image, description, brand, currentInventory, id } = inputData;
+    
     const handleSubmit = async (e:any) => {
         // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
         e.preventDefault();
+        // console.log("tttt",e.target)
+        try {
+            const res = await fetch(
+                "https://api.apispreadsheets.com/data/3GDfdpRgT7K8z7Cs/", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.parse(JSON.stringify({name, price, image, description, brand, currentInventory, id}))
+                }
+            );
+            await res.json();
+            setInputData({...inputData, name: "", price: "", image: "",description: "", brand: "", currentInventory: "", id: ""})
+        } catch(err){
+            console.log('error:', err);
+        }
     }
 
     // input reset
@@ -132,8 +154,8 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
              &nbsp;&nbsp;
             <br/>
             </label>
-            <button onClick={onSubmit}>추가</button>
-            <button onClick={onReset}>리셋</button>
+            <button type="submit" onClick={onSubmit}>추가</button>
+            <button type="reset" onClick={onReset}>리셋</button>
             </form>
         </div>
     );
