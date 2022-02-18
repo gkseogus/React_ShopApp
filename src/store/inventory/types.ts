@@ -16,7 +16,8 @@ export enum InventoryActionTypes {
   FETCH_REQUEST = "@@inventory/FETCH_REQUEST", // 요청
   FETCH_SUCCESS = "@@inventory/FETCH_SUCCESS", // 성공적인 응답
   FETCH_ERROR = "@@inventory/FETCH_ERROR", // 에러
-  CREATE_ITEM = "@@inventory/CREATE_ITEM" // item생성
+  CREATE_ITEM = "@@inventory/CREATE_ITEM", // item생성
+  DELETE_ITEM = "@@inventory/DELETE_ITEM" // item삭제
 }
 
 export interface InventoryState {
