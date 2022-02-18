@@ -62,7 +62,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
         // console.log("tttt",e.target)
         try {
             const res = await fetch(
-                "https://api.apispreadsheets.com/data/3GDfdpRgT7K8z7Cs/", {
+                "https://api.apispreadsheets.com/data/EcMp9sbxEp8SFPYF/", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
