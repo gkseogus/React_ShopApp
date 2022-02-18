@@ -42,3 +42,13 @@ export const createItem: ActionCreator<NewType> = item => {
       });
   };
 }
+
+// 상품 삭제
+export const deleteItem: ActionCreator<NewType> = item => {
+  return (dispatch: Dispatch): Action => {
+      return dispatch({
+        type: InventoryActionTypes.DELETE_ITEM,
+        payload: item
+      });
+  };
+}
