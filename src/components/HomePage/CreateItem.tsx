@@ -17,7 +17,6 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
         description: '',
         brand: '',
         currentInventory: '',
-        id: ''
     });
 
     // file 타입인 input의 상태만 따로 보관
@@ -56,8 +55,6 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
             brand:String(inputData.brand), currentInventory:Number(inputData.currentInventory)
         })
     }
-
-    const { name, price, image, description, brand, currentInventory, id } = inputData;
     
     const handleSubmit = async (e:any) => {
         // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
@@ -70,11 +67,14 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.parse(JSON.stringify({name, price, image, description, brand, currentInventory, id}))
+                    body: JSON.stringify({"data": 
+                    {"name":inputData.name,"brand":inputData.brand,"image":FileImage,"price":inputData.price,
+                    "description":inputData.description,"currentInventory":inputData.currentInventory}
+                    })
                 }
             );
             await res.json();
-            setInputData({...inputData, name: "", price: "", image: "",description: "", brand: "", currentInventory: "", id: ""})
+            setInputData({...inputData, name: "", price: "", image: "",description: "", brand: "", currentInventory: ""})
         } catch(err){
             console.log('error:', err);
         }
