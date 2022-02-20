@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { addToCart } from '../../store/cart/action';
-import { deleteItem } from "../../store/inventory/action";
+import { deleteItem } from '../../store/inventory/action';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
 // 컨텐츠 박스들의 스타일( background: red; )
 const ProductContainer = styled.div`
@@ -81,14 +82,17 @@ const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
     addToCart(item);
   };
 
+  const dispatch = useDispatch();
+
   // Item delet 함수
   const deleteData = async () => {
     try {
       const res = await axios.get(
-        // item의 name을 통해 삭제
-        `https://api.apispreadsheets.com/data/feTaIaMkkdsiXaAf/?query=deletefromfeTaIaMkkdsiXaAfwherename="${item.name}"`
-      );
-      console.log('parsing is json', res);
+        // deletefrom 으로 item의 name을 통해 삭제
+        `https://api.apispreadsheets.com/data/8CyYJrzkekwDcy5L/?query=deletefrom2Qd5MDqxG1IKMAwcwherename="${item.name}"`      );
+      console.log('parsing is json (delete)', res);
+      // useDispatch로 deleteItem을 액션에서 실행
+      dispatch(deleteItem(item));
     } catch (err) {
       console.log('error:', err);
     }
@@ -114,7 +118,7 @@ const mapStateToProps = () => ({});
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
     addToCart: (item: any) => dispatch(addToCart(item)),
-    deleteItem: (item: any) => dispatch(deleteItem(item))
+    deleteItem: (item: any) => dispatch(deleteItem(item)),
   };
 };
 
