@@ -32,18 +32,21 @@ const reducer: Reducer<InventoryState> = (state = initialState, action) => {
       return { ...state, loading: false, errors: action.payload };
     }
     case CREATE_ITEM: {
-      // console.log('action',action.payload)
+      console.log('Create reducer Test',action.payload)
       // console.log('state.data',state.data)
       const newItem: Inventory = {
         ...action.payload,
         id: Math.random().toString(), // id는 임의의 랜덤 문자열
       };
-      // api 데이터를 store에서 관리
       return { ...state, data: [newItem, ...state.data] };
     }
     case DELETE_ITEM: {
-      // api 데이터를 store에서 관리
-      return { ...state, loading: false, data: action.payload };
+      console.log('Delete reducer Test', action.payload)
+      return {
+        ...state,
+        data: state.data.filter((data) => data.name !== action.payload.name),
+        loading: false,
+      }
     }
     default: {
       return state;
