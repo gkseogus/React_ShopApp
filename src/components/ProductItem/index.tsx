@@ -1,10 +1,12 @@
-import React from "react";
-import { connect } from "react-redux";
-import styled from "styled-components";
-import { addToCart } from "../../store/cart/action";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import { addToCart } from '../../store/cart/action';
 import { deleteItem } from "../../store/inventory/action";
-import { ThunkDispatch } from "redux-thunk";
-import { AnyAction } from "redux";
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { updateNonNullExpression } from 'typescript';
+import axios, { Axios } from 'axios';
 
 // 컨텐츠 박스들의 스타일( background: red; )
 const ProductContainer = styled.div`
@@ -33,7 +35,6 @@ const ProductImage = styled.img`
   object-position: center;
 `;
 
-
 // 소파이름 박스 스타일 ( color: pink; )
 const ProductHeader = styled.h1`
   height: 76px;
@@ -49,7 +50,7 @@ const ProductDescriptionDiv = styled.div`
 
 // jason bourne 박스 스타일( background: black; )
 const ProductBrandText = styled.text`
-background: black;
+  background: black;
 `;
 
 // Add To cart 버튼 스타일 (  background: blue )
@@ -62,10 +63,10 @@ const AddToCart = styled.button`
 
 // x 버튼 스타일
 const ProductDelete = styled.button`
-padding: 5px;
-background-color: black;
-color: #ffffff;
-border-radius: 5px;
+  padding: 5px;
+  background-color: black;
+  color: #ffffff;
+  border-radius: 5px;
 `;
 
 interface propsFromComponent {
@@ -80,15 +81,21 @@ const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
   const AddItemToCart = (item: any) => {
     addToCart(item);
   };
-  
-  // Item 삭제 함수
-  const DeleteItem = (item: any) => {
-    deleteItem(item);
-  } 
+
+  const deleteData = async () => {
+    try {
+      const res = await axios.get(
+        `https://api.apispreadsheets.com/data/feTaIaMkkdsiXaAf/?query=deletefromfeTaIaMkkdsiXaAfwherename="${item.name}"`
+      );
+      console.log('parsing is json', res);
+    } catch (err) {
+      console.log('error:', err);
+    }
+  };
 
   return (
     <ProductContainer>
-      <ProductDelete onClick={() => {DeleteItem(item)}}>x</ProductDelete>
+      <ProductDelete onClick={() => deleteData()}>x</ProductDelete>
       <ProductFigure>
         <ProductImage src={item.image} />
       </ProductFigure>
@@ -101,7 +108,7 @@ const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
   );
 };
 
-const mapStateToProps = ( ) => ({});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
@@ -110,4 +117,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(ProductItem);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductItem);
