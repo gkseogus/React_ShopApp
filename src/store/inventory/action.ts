@@ -1,4 +1,4 @@
-import { Inventory, InventoryActionTypes } from "./types";
+import { Inventory, FETCH_ERROR,FETCH_REQUEST,FETCH_SUCCESS,CREATE_ITEM,DELETE_ITEM } from "./types";
 
 import { ActionCreator, Action, Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
@@ -22,12 +22,12 @@ export const fetchRequest: AppThunk = () => {
     try {
       // 각 두개의 dispatch에 action을 담아 전송
       return dispatch({ // 리듀서에게 inventory 데이터 전송
-        type: InventoryActionTypes.FETCH_SUCCESS,
+        type: FETCH_SUCCESS,
         payload: inventory // inventory 데이터를 전송 ( mockdata )
       });
     } catch (e) { 
       return dispatch({
-        type: InventoryActionTypes.FETCH_ERROR // 에러이면...
+        type: FETCH_ERROR // 에러이면...
       });
     }
   };
@@ -37,17 +37,17 @@ export const fetchRequest: AppThunk = () => {
 export const createItem: ActionCreator<NewType> = item => {
   return (dispatch: Dispatch): Action => {
       return dispatch({
-        type: InventoryActionTypes.CREATE_ITEM,
+        type: CREATE_ITEM,
         payload: item
       });
   };
 }
 
-// 상품 삭제
+// // 상품 삭제
 export const deleteItem: ActionCreator<NewType> = item => {
   return (dispatch: Dispatch): Action => {
       return dispatch({
-        type: InventoryActionTypes.DELETE_ITEM,
+        type: DELETE_ITEM,
         payload: item
       });
   };
