@@ -1,4 +1,4 @@
-import { Inventory, FETCH_ERROR,FETCH_REQUEST,FETCH_SUCCESS,CREATE_ITEM,DELETE_ITEM } from "./types";
+import { Inventory, FETCH_ERROR,FETCH_SUCCESS,CREATE_ITEM,DELETE_ITEM } from "./types";
 
 import { ActionCreator, Action, Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";

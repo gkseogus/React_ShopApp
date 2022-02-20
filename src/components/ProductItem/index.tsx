@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { addToCart } from '../../store/cart/action';
 import { deleteItem } from "../../store/inventory/action";
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { updateNonNullExpression } from 'typescript';
-import axios, { Axios } from 'axios';
+import axios from 'axios';
 
 // 컨텐츠 박스들의 스타일( background: red; )
 const ProductContainer = styled.div`
@@ -82,9 +81,11 @@ const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
     addToCart(item);
   };
 
+  // Item delet 함수
   const deleteData = async () => {
     try {
       const res = await axios.get(
+        // item의 name을 통해 삭제
         `https://api.apispreadsheets.com/data/feTaIaMkkdsiXaAf/?query=deletefromfeTaIaMkkdsiXaAfwherename="${item.name}"`
       );
       console.log('parsing is json', res);
