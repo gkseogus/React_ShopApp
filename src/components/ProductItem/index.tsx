@@ -90,7 +90,7 @@ const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
     try {
       const res = await axios.get(
         // deletefrom 을 사용해 해당 아이템 삭제
-        `https://api.apispreadsheets.com/data/GKuNvTIfiVrTemcP/?query=deletefrom2Qd5MDqxG1IKMAwcwherename="${item.name}"`);
+        `https://api.apispreadsheets.com/data/SYgZUiWhizRJzcaI/?query=deletefromSYgZUiWhizRJzcaIwherename="${item.name}"`);
       console.log('parsing is json (delete)', res);
       // useDispatch로 deleteItem을 액션에서 실행
       dispatch(deleteItem(item));

@@ -62,11 +62,13 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
         // console.log("tttt",e.target)
         try {
             const res = await fetch(
-                "https://api.apispreadsheets.com/data/GKuNvTIfiVrTemcP/", {
+                "https://api.apispreadsheets.com/data/SYgZUiWhizRJzcaI/", {
+                    // 서버로 데이터를 전송
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
+                    // stringify 값이나 객체를 JSON 문자열로 변환
                     body: JSON.stringify({"data": 
                     {"name":inputData.name,"brand":inputData.brand,"image":FileImage,"price":inputData.price,
                     "description":inputData.description,"currentInventory":inputData.currentInventory}
