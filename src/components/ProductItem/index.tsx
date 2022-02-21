@@ -5,7 +5,6 @@ import { addToCart } from '../../store/cart/action';
 import { deleteItem } from '../../store/inventory/action';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 
 // 컨텐츠 박스들의 스타일( background: red; )
@@ -88,7 +87,7 @@ const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
   // Item delet 함수
   const deleteData = async () => {
     try {
-      const res = await axios.get(
+      const res = await fetch(
         // deletefrom 을 사용해 해당 아이템 삭제
         `https://api.apispreadsheets.com/data/fS815RX1jCqyCKiS/?query=deletefromfS815RX1jCqyCKiSwherename="${item.name}"`);
       console.log('parsing is json (delete)', res);

@@ -70,7 +70,7 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
         // default로 GET 메소드를 사용
         // await를 통해 비동기 작업의 결과값을 얻을 때까지 기다려준다. -> 동기식
         const res = await fetch(
-            "hhttps://api.apispreadsheets.com/data/fS815RX1jCqyCKiS/"
+            "https://api.apispreadsheets.com/data/fS815RX1jCqyCKiS/"
         );
         // API를 호출한 후 응답 객체를 받으며 .json() 메서드로 파싱한 json값을 리턴
         const dataData = await res.json();
