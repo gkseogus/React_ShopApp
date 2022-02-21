@@ -1,6 +1,4 @@
-import { METHODS } from 'http';
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import { InventoryCreate } from '../../store/inventory/types';
 
 interface CartItemsProps {
