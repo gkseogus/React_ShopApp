@@ -82,13 +82,14 @@ const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
     addToCart(item);
   };
 
+  // Redux 저장소에서 함수에 대한 참조를 반환
   const dispatch = useDispatch();
 
   // Item delet 함수
   const deleteData = async () => {
     try {
       const res = await axios.get(
-        // deletefrom 으로 item의 name을 통해 삭제
+        // deletefrom 을 사용해 해당 아이템 삭제
         `https://api.apispreadsheets.com/data/8CyYJrzkekwDcy5L/?query=deletefrom2Qd5MDqxG1IKMAwcwherename="${item.name}"`);
       console.log('parsing is json (delete)', res);
       // useDispatch로 deleteItem을 액션에서 실행
@@ -117,8 +118,10 @@ const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
-    addToCart: (item: any) => dispatch(addToCart(item)),
-    deleteItem: (item: any) => dispatch(deleteItem(item)),
+    addToCart: (item: any) => {dispatch(addToCart(item));
+    },
+    deleteItem: (item: any) => {dispatch(deleteItem(item));
+    }
   };
 };
 

@@ -16,7 +16,7 @@ export const FETCH_REQUEST = "@@inventory/FETCH_REQUEST"; // 요청
 export const FETCH_SUCCESS = "@@inventory/FETCH_SUCCESS"; // 성공적인 응답
 export const FETCH_ERROR = "@@inventory/FETCH_ERROR"; // 에러
 export const CREATE_ITEM = "@@inventory/CREATE_ITEM"; // item생성
-export const DELETE_ITEM = "@@inventory/DELETE_ITEM";
+export const DELETE_ITEM = "@@inventory/DELETE_ITEM"; // item삭제
 
 export interface InventoryState {
   readonly loading: boolean;
