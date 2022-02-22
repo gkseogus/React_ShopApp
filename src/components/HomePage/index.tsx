@@ -74,6 +74,7 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
         // API를 호출한 후 응답 객체를 받으며 .json() 메서드로 파싱한 json값을 리턴
         const apiData = await res.json();
         console.log('parsing is json (get)',apiData.data);
+        // 받아온 apiData의 data를 fetchRequest에 보냄
         dispatch(fetchRequest(apiData.data))
     } catch(err){
         console.log('error:', err);
