@@ -29,11 +29,11 @@ const reducer: Reducer<InventoryState> = (state = initialState, action) => {
       return { ...state, loading: false, data: action.payload };
     }
     case FETCH_ERROR: {
-      return { ...state, loading: false, errors: action.payload };
+      console.log('Error')
+      return { ...state, loading: false, data: action.payload };
     }
     case CREATE_ITEM: {
       console.log('Create reducer Test',action.payload)
-      // console.log('state.data',state.data)
       const newItem: Inventory = {
         ...action.payload,
         id: Math.random().toString(), // id는 임의의 랜덤 문자열
