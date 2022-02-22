@@ -60,7 +60,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
         // console.log("tttt",e.target)
         try {
             const res = await fetch(
-                "https://api.apispreadsheets.com/data/fS815RX1jCqyCKiS/", {
+                "https://api.apispreadsheets.com/data/UZR1M0o8VQqO0BO8/", {
                     // 서버로 데이터를 전송
                     method: 'POST',
                     headers: {
