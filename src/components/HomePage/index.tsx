@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import ProductItem from "../ProductItem";
@@ -34,7 +34,7 @@ interface PropsFromState {
 
 
 interface propsFromDispatch {
-  fetchRequest: () => any;
+  fetchRequest: (data: InventoryCreate) => any;
   createItem: (data: InventoryCreate) => void;
 }
 
@@ -60,9 +60,8 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
     // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
     event.preventDefault();
   }
-
-  // Api 데이터의 상태를 보관
-  const [ApiData, setApiData] = useState([]);
+  
+  const dispatch = useDispatch();
 
   const getData = async () => {
     try{
@@ -70,12 +69,12 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
         // default로 GET 메소드를 사용
         // await를 통해 비동기 작업의 결과값을 얻을 때까지 기다려준다. -> 동기식
         const res = await fetch(
-            "https://api.apispreadsheets.com/data/fS815RX1jCqyCKiS/"
+            "https://api.apispreadsheets.com/data/UZR1M0o8VQqO0BO8/"
         );
         // API를 호출한 후 응답 객체를 받으며 .json() 메서드로 파싱한 json값을 리턴
-        const dataData = await res.json();
-        console.log('parsing is json (get)',dataData.data);
-        setApiData(dataData.data);
+        const apiData = await res.json();
+        console.log('parsing is json (get)',apiData.data);
+        dispatch(fetchRequest(apiData.data))
     } catch(err){
         console.log('error:', err);
     }
@@ -97,23 +96,15 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
         </form>
         <CreateItem onCreate={createItem} />
           {
-            // input에서 타이핑할때마다 searchKeyword의 값이 바뀌고 이 값을 기준으로 data에서 filter해준다.
-            // includes를 통해 검색 대상인 값에 검색할 값이 있는지 확인
             // item.name.toLowerCase() -> 검색 대상인 값 
             // searchKeyword.toLowerCase() -> 검색할 값
-            data.filter(item => item.name.toLowerCase().includes(searchKeyword.toLowerCase())).map((item, index) => {
+            data.filter((item: any) => item.name.toString().toLowerCase().includes(searchKeyword.toLowerCase())).map((item, index) => {
               if (newData === true) {
                 return <ProductItem key={index} item={item} />; // 실질적으로 사이트에 출력되는 컴포넌트 
               }
               return newData
             })
           }
-          {
-            // ApiData를 ProductItem의 item에 적용
-            ApiData.map((data,index)=>{
-              return <ProductItem key={index} item={data} />;
-            })
-          }     
       </ProductListItems>
     </Container>
   );
@@ -127,8 +118,8 @@ const mapStateToProps = ({ inventory }: ApplicationState) => ({
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
-    fetchRequest: () => {
-      dispatch(fetchRequest());
+    fetchRequest: (apiData: any) => {
+      dispatch(fetchRequest(apiData));
     },
     createItem: (data:any) => {
       dispatch(createItem(data));
