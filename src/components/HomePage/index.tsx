@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import styled from "styled-components";
 
 import ProductItem from "../ProductItem";
@@ -56,35 +56,37 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
     setNewData(false)
   }
 
-  const handleSubmit = async (event:any) => {
+  const handleSubmit = async (event: any) => {
     // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
     event.preventDefault();
   }
-  
-  const dispatch = useDispatch();
+
+  // const dispatch = useDispatch();
 
   const getData = async () => {
-    try{
-        // fetch로 해당 API를 호출하고 응답 데이터를 받아옴(비동기 요청)
-        // default로 GET 메소드를 사용
-        // await를 통해 비동기 작업의 결과값을 얻을 때까지 기다려준다. -> 동기식
-        const res: Response = await fetch(
-            "https://api.apispreadsheets.com/data/L7EbjMOJyP3Vr880/"
-        );
-        // API를 호출한 후 응답 객체를 받으며 .json() 메서드로 파싱한 json값을 리턴
-        const apiData = await res.json();
-        console.log('parsing is json (get)',apiData.data);
-        // 받아온 apiData의 data를 fetchRequest에 보냄
-        dispatch(fetchRequest(apiData.data))
-    } catch(err){
-        console.log('error:', err);
+    try {
+      // fetch로 해당 API를 호출하고 응답 데이터를 받아옴(비동기 요청)
+      // default로 GET 메소드를 사용
+      // await를 통해 비동기 작업의 결과값을 얻을 때까지 기다려준다. -> 동기식
+      const res: Response = await fetch(
+        "https://api.apispreadsheets.com/data/L7EbjMOJyP3Vr880/"
+      );
+      // API를 호출한 후 응답 객체를 받으며 .json() 메서드로 파싱한 json값을 리턴
+      const apiData = await res.json();
+      console.log(apiData);
+      console.log('parsing is json (get)', apiData.data);
+      // 받아온 apiData의 data를 fetchRequest에 보냄
+      // dispatch(fetchRequest(apiData.data))
+      fetchRequest(apiData.data)
+    } catch (err) {
+      console.log('error:', err);
     }
   }
 
   // 의존성배열
-  useEffect(()=>{
+  useEffect(() => {
     getData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -97,16 +99,16 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
           <button onClick={removeData}>전체 상품삭제</button>
         </form>
         <CreateItem onCreate={createItem} />
-          {
-            // item.name.toLowerCase() -> 검색 대상인 값 
-            // searchKeyword.toLowerCase() -> 검색할 값
-            data.filter((item: any) => item.name.toString().toLowerCase().includes(searchKeyword.toLowerCase())).map((item, index) => {
-              if (newData === true) {
-                return <ProductItem key={index} item={item} />; // 실질적으로 사이트에 출력되는 컴포넌트 
-              }
-              return newData
-            })
-          }
+        {
+          // item.name.toLowerCase() -> 검색 대상인 값 
+          // searchKeyword.toLowerCase() -> 검색할 값
+          data.filter((item: any) => item.name.toString().toLowerCase().includes(searchKeyword.toLowerCase())).map((item, index) => {
+            if (newData === true) {
+              return <ProductItem key={index} item={item} />; // 실질적으로 사이트에 출력되는 컴포넌트 
+            }
+            return newData
+          })
+        }
       </ProductListItems>
     </Container>
   );
@@ -123,7 +125,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
     fetchRequest: (apiData: any) => {
       dispatch(fetchRequest(apiData));
     },
-    createItem: (data:any) => {
+    createItem: (data: any) => {
       dispatch(createItem(data));
     }
   };
