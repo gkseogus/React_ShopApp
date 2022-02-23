@@ -90,7 +90,6 @@ const mapStateToProps = ({ cart }: ApplicationState) => ({
   errors: cart.errors
 });
 
-const mapDispatchToProps = () => {
-};
+const mapDispatchToProps = () => ({});
 
 export default connect(mapStateToProps,mapDispatchToProps)(Navbar);
