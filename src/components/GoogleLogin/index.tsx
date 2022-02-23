@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import styled from 'styled-components';
 
-// OAuth 클라이언트 id
-const clientId = "468304921430-6juo28nrclm5l6jtieca5koopgkt01r6.apps.googleusercontent.com"
-
 const Container = styled.div`
     display: flex;
     flex-flow: column wrap;
@@ -12,6 +9,8 @@ const Container = styled.div`
     top: 0px; left: 50%;
 `
 
+// OAuth 클라이언트 id
+const clientId = "468304921430-6juo28nrclm5l6jtieca5koopgkt01r6.apps.googleusercontent.com"
 class Googlebutton extends Component {
 
     constructor(props: any) {
@@ -37,7 +36,7 @@ class Googlebutton extends Component {
             <Container>
                 <GoogleLogin
                     clientId={clientId}
-                    buttonText="Google login"
+                    buttonText="Sign in with google"
                     onSuccess={this.responseGoogle}
                     onFailure={this.responseFail}
                 />
