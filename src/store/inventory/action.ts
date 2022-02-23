@@ -16,12 +16,12 @@ export type AppThunk = ActionCreator<
 type NewType = ThunkAction<void, ApplicationState, Inventory, Action<string>>;
 
 // apiData를 받아와 reducer에게 데이터를 전송
-export const fetchRequest: AppThunk = (apiData) => {
+export const fetchRequest: AppThunk = (item) => {
   return (dispatch: Dispatch): Action => {
     try {
       return dispatch({ // 리듀서에게 apiData.data 전송
         type: FETCH_SUCCESS,
-        payload: apiData 
+        payload: item 
       });
     } catch (e) { 
       return dispatch({
