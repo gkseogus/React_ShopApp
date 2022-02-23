@@ -2,7 +2,7 @@ import { Reducer } from 'redux';
 import {
   Inventory,
   FETCH_ERROR,
-  FETCH_REQUEST,
+  // FETCH_REQUEST,
   FETCH_SUCCESS,
   CREATE_ITEM,
   DELETE_ITEM,
@@ -19,9 +19,9 @@ export const initialState: InventoryState = {
 // 그에 맞는 동작을 한다.
 const reducer: Reducer<InventoryState> = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_REQUEST: {
-      return { ...state, loading: true }; // ...state = 초기 상태의 카피본  (업데이트 하기 전)
-    }
+    // case FETCH_REQUEST: {
+    //   return { ...state, loading: true }; // ...state = 초기 상태의 카피본  (업데이트 하기 전)
+    // }
     case FETCH_SUCCESS: {
       console.log('action payload', action.payload);
       // 단지 store의 상태만 수정
