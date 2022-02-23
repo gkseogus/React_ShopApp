@@ -68,12 +68,12 @@ const ProductDelete = styled.button`
   border-radius: 5px;
 `;
 
-interface propsFromComponent {
+interface PropsFromComponent {
   item: any; // Inventory;
   addToCart: (item: any) => any;
 }
 
-type Props = propsFromComponent;
+type Props = PropsFromComponent;
 
 const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
   // Cart Item 추가 함수

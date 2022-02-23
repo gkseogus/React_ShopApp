@@ -33,12 +33,12 @@ interface PropsFromState {
 }
 
 
-interface propsFromDispatch {
+interface PropsFromDispatch {
   fetchRequest: (data: InventoryCreate) => any;
   createItem: (data: InventoryCreate) => void;
 }
 
-type AllProps = PropsFromState & propsFromDispatch;
+type AllProps = PropsFromState & PropsFromDispatch;
 
 const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
   //  console.log('homePageData:',data);
@@ -68,7 +68,7 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
         // fetch로 해당 API를 호출하고 응답 데이터를 받아옴(비동기 요청)
         // default로 GET 메소드를 사용
         // await를 통해 비동기 작업의 결과값을 얻을 때까지 기다려준다. -> 동기식
-        const res = await fetch(
+        const res: Response = await fetch(
             "https://api.apispreadsheets.com/data/t2SAspYPU7BhMlNs/"
         );
         // API를 호출한 후 응답 객체를 받으며 .json() 메서드로 파싱한 json값을 리턴
@@ -84,6 +84,7 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
   // 의존성배열
   useEffect(()=>{
     getData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

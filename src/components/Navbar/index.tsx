@@ -49,13 +49,13 @@ const CartSpan = styled.span`
   white-space: nowrap;
 `;
 
-interface propsFromState {
+interface PropsFromState {
   data: Cart;
   loading: boolean;
   errors?: string;
 }
 
-type AllProps = propsFromState;
+type AllProps = PropsFromState;
 
 // children을 통해 컴포넌트 태그의 자식 컴포넌트 혹은 태그로 들어오는 값을 받을수 있다.
 const Navbar: React.FC<AllProps> = ({ 
