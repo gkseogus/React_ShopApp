@@ -89,6 +89,7 @@ const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
     try {
       const res = await fetch(
         // deletefrom 을 사용해 해당 아이템 삭제
+        // input의 name이 숫자일 경우는 바로 삭제가 안된다.
         `https://api.apispreadsheets.com/data/t2SAspYPU7BhMlNs/?query=deletefromt2SAspYPU7BhMlNswherename='${item.name}'`);
       console.log('parsing is json (delete)', res);
       // useDispatch로 deleteItem을 액션에서 실행
