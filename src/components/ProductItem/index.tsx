@@ -119,8 +119,6 @@ const mapStateToProps = () => ({});
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
     addToCart: (item: any) => {dispatch(addToCart(item));
-    },
-    deleteItem: (item: any) => {dispatch(deleteItem(item));
     }
   };
 };
