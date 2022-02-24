@@ -32,8 +32,6 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -63,6 +61,5 @@
     "@types/styled-components": "^5.0.0",
     "prettier": "2.5.1",
     "url-loader": "^3.0.0"
-  },
-  "homepage": "https://gkseogus.github.io/React_shopApp/index.html"
+  }
 }
