@@ -49,6 +49,13 @@ const CartSpan = styled.span`
   white-space: nowrap;
 `;
 
+// 
+const LoginBtn = styled.button`
+  background: white;
+  position: absolute;
+  top: 50px;
+  rigth: 40px;
+`
 interface PropsFromState {
   data: Cart;
   loading: boolean;
@@ -72,6 +79,7 @@ const Navbar: React.FC<AllProps> = ({
           <Link to="/cart">
             Cart <CartSpan>{data.items.length}</CartSpan>
           </Link>
+          <LoginBtn><Link to="/GoogleLogin">로그인</Link></LoginBtn>
         </NavCart>
       </NavContainer>
       {children}

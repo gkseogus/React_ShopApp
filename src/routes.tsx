@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./components/HomePage";
 import Cart from "./components/Cart";
+import Googlebutton from "./components/GoogleLogin";
 
 const Routes: React.SFC = () => (
   <div>
@@ -13,7 +14,7 @@ const Routes: React.SFC = () => (
         path="/" 
         render={() => ( 
           <Navbar>
-            <HomePage/> 
+            <HomePage/>
           </Navbar>
         )}
       />
@@ -24,6 +25,12 @@ const Routes: React.SFC = () => (
           <Navbar>
             <Cart />
           </Navbar>
+        )}
+      />
+      <Route 
+        path="/GoogleLogin" 
+        render={() => ( 
+          <Googlebutton/>
         )}
       />
   </div>
