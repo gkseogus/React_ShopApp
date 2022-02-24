@@ -79,7 +79,7 @@ const Navbar: React.FC<AllProps> = ({
           <Link to="/cart">
             Cart <CartSpan>{data.items.length}</CartSpan>
           </Link>
-          <LoginBtn><Link to="/GoogleLogin">로그인</Link></LoginBtn>
+          <LoginBtn><Link to="/GoogleLogin">로그인/로그아웃</Link></LoginBtn>
         </NavCart>
       </NavContainer>
       {children}
