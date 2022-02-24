@@ -61,22 +61,20 @@ const HomePage: React.FC<AllProps> = ({ data, fetchRequest, createItem }) => {
     event.preventDefault();
   }
 
-  // const dispatch = useDispatch();
-
   const getData = async () => {
     try {
       // fetch로 해당 API를 호출하고 응답 데이터를 받아옴(비동기 요청)
       // default로 GET 메소드를 사용
       // await를 통해 비동기 작업의 결과값을 얻을 때까지 기다려준다. -> 동기식
       const res: Response = await fetch(
-        "https://sheets.googleapis.com/v4/spreadsheets/1nJfe_UGs3KmVkBu9hIDAbi9rA0gnPp4gb8SUjteZplg/values/fruit_sheet1?key=AIzaSyA1x2s3xEk5ZVJZAqw_2k8Eyef6RIBoidU"
+        // "https://sheets.googleapis.com/v4/spreadsheets/1nJfe_UGs3KmVkBu9hIDAbi9rA0gnPp4gb8SUjteZplg/values/A2%3AG16?majorDimension=ROWS&valueRenderOption=FORMULA&key=AIzaSyAZgIPp58hO1P6Fps43ADOHuYrHwS9GITg"
+        'https://api.apispreadsheets.com/data/IH9wmldYiWEcOIY8/'
       );
       // API를 호출한 후 응답 객체를 받으며 .json() 메서드로 파싱한 json값을 리턴
       const apiData = await res.json();
       console.log(apiData);
       console.log('parsing is json (get)', apiData.data);
       // 받아온 apiData의 data를 fetchRequest에 보냄
-      // dispatch(fetchRequest(apiData.data))
       fetchRequest(apiData.data)
     } catch (err) {
       console.log('error:', err);
