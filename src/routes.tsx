@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./components/HomePage";
 import Cart from "./components/Cart";
+import Googlebutton from "./components/GoogleLogin";
 
 
 const Routes: React.SFC = () => (
@@ -14,9 +15,11 @@ const Routes: React.SFC = () => (
         exact
         path="/" 
         render={() => ( 
+          // <Googlebutton>
           <Navbar>
             <HomePage/> 
           </Navbar>
+          // </Googlebutton>
         )}
       />
       {/* 두 번째 route */}
