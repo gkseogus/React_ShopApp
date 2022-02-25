@@ -90,8 +90,8 @@ const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
       const res = await fetch(
         // deletefrom 을 사용해 해당 아이템 삭제
         // input의 name이 숫자일 경우는 바로 삭제가 안된다.
-        // `https://sheets.googleapis.com/v4/spreadsheets/1nJfe_UGs3KmVkBu9hIDAbi9rA0gnPp4gb8SUjteZplg/values/A%3AG16?majorDimension=ROWS&valueRenderOption=FORMULA&key=AIzaSyAZgIPp58hO1P6Fps43ADOHuYrHwS9GITg/?query=deletefromL7EbjMOJyP3Vr880wherename='${item.name}'`
-        `https://api.apispreadsheets.com/data/IH9wmldYiWEcOIY8/?query=deletefromIH9wmldYiWEcOIY8wherename='${item.name}'`
+        `https://sheets.googleapis.com/v4/spreadsheets/1nJfe_UGs3KmVkBu9hIDAbi9rA0gnPp4gb8SUjteZplg/values/A%3AG16?majorDimension=ROWS&valueRenderOption=FORMULA&key=AIzaSyAZgIPp58hO1P6Fps43ADOHuYrHwS9GITg/?query=deletefromL7EbjMOJyP3Vr880wherename='${item.name}'`
+        //     `https://api.apispreadsheets.com/data/IH9wmldYiWEcOIY8/?query=deletefromIH9wmldYiWEcOIY8wherename='${item.name}'`
         );
       console.log('parsing is json (delete)', res);
       // useDispatch로 deleteItem을 액션에서 실행
