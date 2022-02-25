@@ -73,6 +73,7 @@
 
           // Handle the initial sign-in state.
           updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          // 버튼클릭 이벤트
           authorizeButton.onclick = handleAuthClick;
           signoutButton.onclick = handleSignoutClick;
         }, function(error) {
@@ -80,10 +81,8 @@
         });
       }
 
-      /**
-       *  Called when the signed in status changes, to update the UI
-       *  appropriately. After a sign-in, the API is called.
-       */
+       // Called when the signed in status changes, to update the UI
+       // appropriately. After a sign-in, the API is called.
       function updateSigninStatus(isSignedIn) {
         if (isSignedIn) {
           authorizeButton.style.display = 'none';
@@ -95,16 +94,13 @@
         }
       }
 
-      /**
-       *  Sign in the user upon button click.
-       */
+
+      // Sign in the user upon button click.
       function handleAuthClick(event) {
         gapi.auth2.getAuthInstance().signIn();
       }
 
-      /**
-       *  Sign out the user upon button click.
-       */
+      // Sign out the user upon button click.
       function handleSignoutClick(event) {
         gapi.auth2.getAuthInstance().signOut();
       }
@@ -121,12 +117,9 @@
         pre.appendChild(textContent);
       }
 
-      /**
-       * Print the names and majors of students in a sample spreadsheet:
-       * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
-       */
       function listMajors() {
         gapi.client.sheets.spreadsheets.values.get({
+          // 시트 id & 추출할 데이터 행렬 입력
           spreadsheetId: '1nJfe_UGs3KmVkBu9hIDAbi9rA0gnPp4gb8SUjteZplg',
           range: 'A2:G16',
         }).then(function(response) {
@@ -138,8 +131,7 @@
             for (i = 0; i < range.values.length; i++) {
               var row = range.values[i];
               // 해당 row에 있는 데이터를 배열 길이만큼 뿌려줌
-              appendPre('name:'+ row[0] + ', ' + 'price:' + row[1] + ', ' +
-              'brand:' + row[4] + ', ' + 'currentInventory:' + row[5] + ', ' + 'id:' + row[6]);
+              appendPre('name:'+ row[0] + ', ' + 'price:' + row[1] + ', ' + 'brand:' + row[4] + ', ' + 'id:' + row[6]);
             }
           } else {
             appendPre('No data found.');
