@@ -60,8 +60,7 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
         // console.log("tttt",e.target)
         try {
             const res = await fetch(
-                "https://sheets.googleapis.com/v4/spreadsheets/1nJfe_UGs3KmVkBu9hIDAbi9rA0gnPp4gb8SUjteZplg/values/A2%3AG16?majorDimension=ROWS&valueRenderOption=FORMULA&key=AIzaSyAZgIPp58hO1P6Fps43ADOHuYrHwS9GITg"
-                // 'https://api.apispreadsheets.com/data/IH9wmldYiWEcOIY8/'
+                'https://api.apispreadsheets.com/data/IH9wmldYiWEcOIY8/'
                 , {
                     // 서버로 데이터를 전송
                     method: 'POST',
