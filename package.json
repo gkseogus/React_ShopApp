@@ -17,6 +17,7 @@
     "gapi": "^0.0.3",
     "gapi-script": "^1.2.0",
     "gh-pages": "^3.2.3",
+    "google-spreadsheet": "^3.2.0",
     "history": "^4.10.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
