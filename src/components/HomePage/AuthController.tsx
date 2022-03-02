@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { ApplicationState } from './store';
-import { fetchRequest } from './store/inventory/action';
-import { Inventory } from './store/inventory/types';
+import { ApplicationState } from '../../store';
+import { fetchRequest } from '../../store/inventory/action';
+import { Inventory } from '../../store/inventory/types';
 
 interface PropsFromState {
   loading: boolean;
@@ -18,11 +18,30 @@ interface PropsFromDispatch {
 
 type AllProps = PropsFromState & PropsFromDispatch;
 
+// javascript 로 로드되어있는 구글 api를 사용하기 위해 타입 정의
+declare const window: Window & {
+  gapi: any;
+};
+
 /**
  * 전체적으로 index.html 에 작성되어 있는 코드를 컴포넌트 화 시킴 (https://developers.google.com/sheets/api/quickstart/js)
  * ㄴ redux 스토어에 전달하기 위함 -> 리액트 컴포넌트 내에서 api를 요청해야 된다.
  * @returns
  */
+
+// 개발자 콘솔에서 불러올 클라이언트 ID 및 API 키
+var CLIENT_ID =
+  '468304921430-6juo28nrclm5l6jtieca5koopgkt01r6.apps.googleusercontent.com';
+var API_KEY = 'AIzaSyAZgIPp58hO1P6Fps43ADOHuYrHwS9GITg';
+
+// quickstart에서 사용하는 API용 API 탐색 문서 URL 배열
+var DISCOVERY_DOCS = [
+  'https://sheets.googleapis.com/$discovery/rest?version=v4',
+];
+
+// API에 필요한 인증 범위
+var SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly';
+
 export function AuthController({ fetchRequest }: AllProps) {
   // 구글 로그인 여부 상태 값
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -61,7 +80,7 @@ export function AuthController({ fetchRequest }: AllProps) {
 
   // AuthController 컴포넌트가 처음 렌더링 될 때 (마운트 될 때) 호출됨.
   useEffect(() => {
-    // 구글 auth 모듈 initialize
+    // 구글 auth 모듈 초기 내용 설정
     window.gapi.load('client:auth2', async () => {
       try {
         await window.gapi.client.init({
@@ -70,12 +89,12 @@ export function AuthController({ fetchRequest }: AllProps) {
           discoveryDocs: DISCOVERY_DOCS,
           scope: SCOPES,
         });
-        // Listen for sign-in state changes.
+        // 로그인 상태 변경을 위한 listen(연결 요청 대기 메소드)
         window.gapi.auth2
           .getAuthInstance()
           .isSignedIn.listen(updateSigninStatus);
 
-        // Handle the initial sign-in state.
+        // 초기 로그인 상태를 처리
         updateSigninStatus(
           window.gapi.auth2.getAuthInstance().isSignedIn.get()
         );
@@ -101,31 +120,12 @@ export function AuthController({ fetchRequest }: AllProps) {
   );
 }
 
-// javascript 로 로드되어있는 구글 api를 사용하기 위해 타입 정의
-declare const window: Window & {
-  gapi: any;
-};
-
-// Client ID and API key from the Developer Console
-var CLIENT_ID =
-  '468304921430-6juo28nrclm5l6jtieca5koopgkt01r6.apps.googleusercontent.com';
-var API_KEY = 'AIzaSyAZgIPp58hO1P6Fps43ADOHuYrHwS9GITg';
-
-// Array of API discovery doc URLs for APIs used by the quickstart
-var DISCOVERY_DOCS = [
-  'https://sheets.googleapis.com/$discovery/rest?version=v4',
-];
-
-// Authorization scopes required by the API; multiple scopes can be
-// included, separated by spaces.
-var SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly';
-
-// Sign in the user upon button click.
+// 버튼 클릭 시 사용자를 로그인
 function handleAuthClick() {
   window.gapi.auth2.getAuthInstance().signIn();
 }
 
-// Sign out the user upon button click.
+// 버튼 클릭 시 사용자를 로그아웃
 function handleSignoutClick() {
   window.gapi.auth2.getAuthInstance().signOut();
 }
