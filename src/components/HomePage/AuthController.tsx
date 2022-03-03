@@ -19,6 +19,7 @@ interface PropsFromDispatch {
 type AllProps = PropsFromState & PropsFromDispatch;
 
 // javascript 로 로드되어있는 구글 api를 사용하기 위해 타입 정의
+// declare는 컴파일이 되지 않고 타입 정보만 알린다.
 declare const window: Window & {
   gapi: any;
 };
@@ -30,14 +31,11 @@ declare const window: Window & {
  */
 
 // 개발자 콘솔에서 불러올 클라이언트 ID 및 API 키
-var CLIENT_ID =
-  '468304921430-6juo28nrclm5l6jtieca5koopgkt01r6.apps.googleusercontent.com';
+var CLIENT_ID = '468304921430-6juo28nrclm5l6jtieca5koopgkt01r6.apps.googleusercontent.com';
 var API_KEY = 'AIzaSyAZgIPp58hO1P6Fps43ADOHuYrHwS9GITg';
 
 // quickstart에서 사용하는 API용 API 탐색 문서 URL 배열
-var DISCOVERY_DOCS = [
-  'https://sheets.googleapis.com/$discovery/rest?version=v4',
-];
+var DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4'];
 
 // API에 필요한 인증 범위
 var SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly';
@@ -86,10 +84,12 @@ export function AuthController({ fetchRequest }: AllProps) {
         await window.gapi.client.init({
           apiKey: API_KEY,
           clientId: CLIENT_ID,
-          discoveryDocs: DISCOVERY_DOCS,
-          scope: SCOPES,
+          discoveryDocs: DISCOVERY_DOCS, // API의 검색 문서는 API의 표면, API에 액세스하는 방법, API 요청 및 응답이 구조화되는 방법을 설명
+          scope: SCOPES
         });
+
         // 로그인 상태 변경을 위한 listen(연결 요청 대기 메소드)
+        // getAuthInstance로 GoogleAuth를 불러온다.
         window.gapi.auth2
           .getAuthInstance()
           .isSignedIn.listen(updateSigninStatus);
@@ -104,6 +104,16 @@ export function AuthController({ fetchRequest }: AllProps) {
     });
   }, []);
 
+  // 버튼 클릭 시 사용자를 로그인
+  function handleAuthClick() {
+    window.gapi.auth2.getAuthInstance().signIn();
+  }
+
+  // 버튼 클릭 시 사용자를 로그아웃
+  function handleSignoutClick() {
+    window.gapi.auth2.getAuthInstance().signOut();
+  }
+
   // 로그인 여부 상태값에 따라 Authorize / Sign Out 버튼 렌더링
   return (
     <>
@@ -113,21 +123,11 @@ export function AuthController({ fetchRequest }: AllProps) {
         </button>
       ) : (
         <button id="authorize_button" onClick={handleAuthClick}>
-          Authorize
+          Sign in
         </button>
       )}
     </>
   );
-}
-
-// 버튼 클릭 시 사용자를 로그인
-function handleAuthClick() {
-  window.gapi.auth2.getAuthInstance().signIn();
-}
-
-// 버튼 클릭 시 사용자를 로그아웃
-function handleSignoutClick() {
-  window.gapi.auth2.getAuthInstance().signOut();
 }
 
 const mapStateToProps = ({ inventory }: ApplicationState) => ({
