@@ -14,7 +14,7 @@ const ProductContainer = styled.div`
   margin: 15px;
   cursor: pointer;
   flex: 0 0 25%;
-  background: red;
+  background: white;
 `;
 
 // 컨텐츠 박스안의 사진박스의 스타일( height: 1100px; )
@@ -37,7 +37,8 @@ const ProductImage = styled.img`
 // 소파이름 박스 스타일 ( color: pink; )
 const ProductHeader = styled.h1`
   height: 76px;
-  background: pink;
+  background: bisque;
+  border-radius: 10px;
 `;
 
 // Add To cart 버튼과 jason Bourne 텍스트를 포함하는 박스 스타일 ( background: white; )
@@ -49,14 +50,15 @@ const ProductDescriptionDiv = styled.div`
 
 // jason bourne 박스 스타일( background: black; )
 const ProductBrandText = styled.text`
-  background: black;
+  background: bisque;
+  border-radius: 10px;
 `;
 
 // Add To cart 버튼 스타일 (  background: blue )
 const AddToCart = styled.button`
   padding: 10px;
-  background-color: blue;
-  color: #ffffff;
+  background-color: black;
+  color: white;
   border-radius: 10px;
 `;
 

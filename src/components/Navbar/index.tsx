@@ -12,7 +12,7 @@ const NavContainer = styled.div`
   width: 100%;
   height: 0px;
   /* position: fixed; */
-  background: #e7e8eb;
+  background: black;
   margin: auto;
 `;
 
@@ -21,7 +21,7 @@ const NavHeader = styled.div`
   width: 20%;
   float: left;
   padding: 10px;
-  background: aqua;
+  background: black;
 `;
 
 //cart 박스 옵션 ( background: blue; )
@@ -30,7 +30,7 @@ const NavCart = styled.div`
   float: right;
   padding: 10px;
   cursor: pointer;
-  background: blue;
+  background: black;
 `;
 
 

@@ -14,14 +14,14 @@ const Container = styled.div`
   width: 100%;
   max-width: 1170px;
   margin: auto;
-  background: green;
+  background: white;
 `;
 
 // 소파 글씨 옵션 ( color: yellow )
 const ProductListItems = styled.div`
   display: flex;
   flex-wrap: wrap;
-  color: yellow;
+  color: black;
 `;
 
 // 인터페이스 정의
