@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import Cart from './components/Cart';
 import Googlebutton from './components/GoogleLogin';
-import AuthController from './components/HomePage/AuthController';
+import AuthController from './components/AuthControll';
 
 const Routes: React.SFC = () => (
   <div>

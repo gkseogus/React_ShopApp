@@ -7,6 +7,13 @@ interface CartItemsProps {
 
 const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
 
+    const style = {
+        width: '600px',
+        margin: '20px',
+        padding: '10px',
+        border: '3px solid black'
+    }
+    
     // 여러 state를 한 곳에 모아 보관
     const [inputData, setInputData] = useState({
         name: '',
@@ -27,19 +34,10 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
             // e.target.name 키를 가진 값을 value로 설정
             [e.target.name]: e.target.value
         })
-        // console.log('test',e.target.name)
     }
 
-    const style = {
-        width: '600px',
-        margin: '20px',
-        padding: '10px',
-        border: '3px solid black'
-    }
-    
     // return 되기 전 onSubmit으로 아래 코드 실행
     const onSubmit = () => {
-        // name, price 값이 없을 시 
         if( !inputData.name || !inputData.price ) {
             return alert("이름과 가격은 필수 기입")
         }
@@ -57,17 +55,14 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
     const handleSubmit = async (e:any) => {
         // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
         e.preventDefault();
-        // console.log("tttt",e.target)
         try {
             const res = await fetch(
                 'https://api.apispreadsheets.com/data/F73K7GKP3Yawx76T/'
                 , {
-                    // 서버로 데이터를 전송
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    // stringify 값이나 객체를 JSON 문자열로 변환
                     body: JSON.stringify({"data": 
                     {"name":inputData.name,"brand":inputData.brand,"image":FileImage,"price":inputData.price,
                     "description":inputData.description,"currentInventory":inputData.currentInventory}
@@ -162,4 +157,4 @@ const CreateItems:React.FC<CartItemsProps> = ({onCreate}) => {
     );
 }
 
-export default CreateItems;
+export default React.memo(CreateItems);

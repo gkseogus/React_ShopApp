@@ -57,7 +57,6 @@ export function AuthController({ fetchRequest }: AllProps) {
           range: 'A2:G16',
         })
         .then((response: any) => {
-          // 불러온 스프레트 시트를 Inventory interface에 맞게 파싱하고 redux store에 전달
           fetchRequest(
             response.result.values.map((row: string[]) => ({
               name: row[0],
@@ -74,9 +73,18 @@ export function AuthController({ fetchRequest }: AllProps) {
       // 로그아웃시 redux store에서 값 clear
       fetchRequest([]);
     }
-  }, []);
+  }, [fetchRequest]);
 
-  // AuthController 컴포넌트가 처음 렌더링 될 때 (마운트 될 때) 호출됨.
+  // 버튼 클릭 시 사용자를 로그인
+  const handleAuthClick = () => {
+    window.gapi.auth2.getAuthInstance().signIn();
+  };
+
+  // 버튼 클릭 시 사용자를 로그아웃
+  const handleSignoutClick = () => {
+    window.gapi.auth2.getAuthInstance().signOut();
+  }; 
+  
   useEffect(() => {
     // 구글 auth 모듈 초기 내용 설정
     window.gapi.load('client:auth2', async () => {
@@ -84,12 +92,11 @@ export function AuthController({ fetchRequest }: AllProps) {
         await window.gapi.client.init({
           apiKey: API_KEY,
           clientId: CLIENT_ID,
-          discoveryDocs: DISCOVERY_DOCS, // API의 검색 문서는 API의 표면, API에 액세스하는 방법, API 요청 및 응답이 구조화되는 방법을 설명
+          discoveryDocs: DISCOVERY_DOCS, 
           scope: SCOPES
         });
 
         // 로그인 상태 변경을 위한 listen(연결 요청 대기 메소드)
-        // getAuthInstance로 GoogleAuth를 불러온다.
         window.gapi.auth2
           .getAuthInstance()
           .isSignedIn.listen(updateSigninStatus);
@@ -102,19 +109,8 @@ export function AuthController({ fetchRequest }: AllProps) {
         alert(error);
       }
     });
-  }, []);
+  }, [updateSigninStatus]);
 
-  // 버튼 클릭 시 사용자를 로그인
-  function handleAuthClick() {
-    window.gapi.auth2.getAuthInstance().signIn();
-  }
-
-  // 버튼 클릭 시 사용자를 로그아웃
-  function handleSignoutClick() {
-    window.gapi.auth2.getAuthInstance().signOut();
-  }
-
-  // 로그인 여부 상태값에 따라 Authorize / Sign Out 버튼 렌더링
   return (
     <>
       {isSignedIn ? (
@@ -136,7 +132,6 @@ const mapStateToProps = ({ inventory }: ApplicationState) => ({
   data: inventory.data,
 });
 
-// 기존 homePage에 있던 상태값 받아오는 코드
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   return {
     fetchRequest: (apiData: any) => {
@@ -145,4 +140,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthController);
+export default React.memo(connect(mapStateToProps, mapDispatchToProps)(AuthController));

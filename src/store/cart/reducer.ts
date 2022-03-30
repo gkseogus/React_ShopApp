@@ -1,7 +1,6 @@
 import { Reducer } from "redux";
-import { CartActionTypes, cartState } from "./types";
-
-// redux는 항상 초기상태를 정의한다.
+import { cartState } from "./types";
+import { ADD_TO_CART, FETCH_CART_REQUEST, FETCH_CART_ERROR, FETCH_CART_SUCCESS, REMOVEALL_FROM_CART, REMOVE_FROM_ITEM } from "./types";
 export const initialState: cartState = {
   data: {
     items: []
@@ -12,29 +11,26 @@ export const initialState: cartState = {
 
 const reducer: Reducer<cartState> = (state = initialState, action) => {
   switch (action.type) {
-    case CartActionTypes.FETCH_CART_REQUEST: {
+    case FETCH_CART_REQUEST: {
       return { ...state, loading: true };
     }
-    case CartActionTypes.FETCH_CART_SUCCESS: {
+    case FETCH_CART_SUCCESS: {
       return { ...state, loading: false, data: action.payload };
     }
-    case CartActionTypes.FETCH_CART_ERROR: {
+    case FETCH_CART_ERROR: {
       return { ...state, loading: false, errors: action.payload };
     }
-    case CartActionTypes.ADD_TO_CART: { // 장바구니에 제품 추가
+    case ADD_TO_CART: { 
       return {
         errors: state.errors,
         loading: state.loading,
         data: {
           ...state.data,
-          // item만 배열로 받아 store에 저장한다
           items: [...state.data.items, action.payload]
         }
       };
     }
-
-    // 모든 장바구니의 제품 제거
-    case CartActionTypes.REMOVEALL_FROM_CART: {
+    case REMOVEALL_FROM_CART: {
       return {
         errors: state.errors,
         loading: state.loading,
@@ -44,13 +40,7 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
         }
       };
     }
-
-    // 개별 장바구니의 제품 제거 
-    // id로 filter하면 같은 id끼리는 모두 삭제 -> items을 구분할때는 id를 사용하고
-    // filter를 사용할 때는 items의 index로 구분하자
-    case CartActionTypes.REMOVE_FROM_ITEM: {
-      // console.log('ttt',action.payload.id)
-      // console.log('ttt',state.data.items)
+    case REMOVE_FROM_ITEM: {
       return {
         errors: state.errors,
         loading: state.loading,
@@ -62,10 +52,6 @@ const reducer: Reducer<cartState> = (state = initialState, action) => {
              // ㄴ 같으면 그 값만 배열의 요소에서 삭제  
           // filter는 state.data.items의 배열을 판별하고 그때 배열의 요소는 k
           items: state.data.items.filter((_k, i) => i !== state.data.items.findIndex(v => v.id === action.payload.id))
-
-          // ex
-          // 1. [0,1,2,3,4] 에서 0,1,4의 id가 같다고 가정하면 findIndex를 통해 0,1,4에서 0의 인덱스 값만 추출
-          // 2. 0의 인덱스 값이 조건문에서 F면 그 요소 삭제
         }
       }
     }

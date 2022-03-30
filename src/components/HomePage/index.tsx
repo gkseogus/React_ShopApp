@@ -8,7 +8,7 @@ import { Inventory, InventoryCreate } from '../../store/inventory/types';
 import { createItem } from '../../store/inventory/action';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import CreateItem from './CreateItem';
+import CreateItem from '../CreateItem';
 
 const Container = styled.div`
   width: 100%;
@@ -17,14 +17,12 @@ const Container = styled.div`
   background: white;
 `;
 
-// 소파 글씨 옵션 ( color: yellow )
 const ProductListItems = styled.div`
   display: flex;
   flex-wrap: wrap;
   color: black;
 `;
 
-// 인터페이스 정의
 interface PropsFromState {
   loading: boolean;
   data: Inventory[];
@@ -38,11 +36,7 @@ interface PropsFromDispatch {
 type AllProps = PropsFromState & PropsFromDispatch;
 
 const HomePage: React.FC<AllProps> = ({ data, createItem }) => {
-  //  console.log('homePageData:',data);
-  // form에 받는 문자타입을 하나의 상태로 보관
   const [searchKeyword, setSearchKeyword] = useState('');
-
-  // newData가 false면 상품을 안 보여줌
   const [newData, setNewData] = useState(true);
 
   const resultData = () => {
@@ -54,7 +48,6 @@ const HomePage: React.FC<AllProps> = ({ data, createItem }) => {
   };
 
   const handleSubmit = async (event: any) => {
-    // form이 실행됨과 동시에 초기화면으로 돌아오는 것(새로고침과 유사)을 막음
     event.preventDefault();
   };
 
@@ -85,7 +78,7 @@ const HomePage: React.FC<AllProps> = ({ data, createItem }) => {
             )
             .map((item, index) => {
               if (newData === true) {
-                return <ProductItem key={index} item={item} />; // 실질적으로 사이트에 출력되는 컴포넌트
+                return <ProductItem key={index} item={item} />; 
               }
               return newData;
             })
@@ -109,4 +102,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default React.memo(connect(mapStateToProps, mapDispatchToProps)(HomePage));
