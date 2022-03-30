@@ -19,7 +19,7 @@ type NewType = ThunkAction<void, ApplicationState, Inventory, Action<string>>;
 export const fetchRequest: AppThunk = (item) => {
   return (dispatch: Dispatch): Action => {
     try {
-      return dispatch({ // 리듀서에게 apiData.data 전송
+      return dispatch({ 
         type: FETCH_SUCCESS,
         payload: item 
       });
