@@ -7,7 +7,6 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import { useDispatch } from 'react-redux';
 
-// 컨텐츠 박스들의 스타일( background: red; )
 const ProductContainer = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 10px;
@@ -17,7 +16,6 @@ const ProductContainer = styled.div`
   background: white;
 `;
 
-// 컨텐츠 박스안의 사진박스의 스타일( height: 1100px; )
 const ProductFigure = styled.figure`
   width: 230px;
   height: 100px;
@@ -26,7 +24,6 @@ const ProductFigure = styled.figure`
   align-items: center;
 `;
 
-// 컨텐츠 박스안의 사진박스의 사진 스타일( height: 10%;)
 const ProductImage = styled.img`
   width: 100%;
   height: 100%;
@@ -34,27 +31,23 @@ const ProductImage = styled.img`
   object-position: center;
 `;
 
-// 소파이름 박스 스타일 ( color: pink; )
 const ProductHeader = styled.h1`
   height: 76px;
   background: bisque;
   border-radius: 10px;
 `;
 
-// Add To cart 버튼과 jason Bourne 텍스트를 포함하는 박스 스타일 ( background: white; )
 const ProductDescriptionDiv = styled.div`
   display: flex;
   justify-content: space-between;
   background: white;
 `;
 
-// jason bourne 박스 스타일( background: black; )
 const ProductBrandText = styled.text`
   background: bisque;
   border-radius: 10px;
 `;
 
-// Add To cart 버튼 스타일 (  background: blue )
 const AddToCart = styled.button`
   padding: 10px;
   background-color: black;
@@ -62,7 +55,6 @@ const AddToCart = styled.button`
   border-radius: 10px;
 `;
 
-// x 버튼 스타일
 const ProductDelete = styled.button`
   padding: 5px;
   background-color: black;
@@ -78,24 +70,20 @@ interface PropsFromComponent {
 type Props = PropsFromComponent;
 
 const ProductItem: React.FC<Props> = ({ item, addToCart }) => {
+  const dispatch = useDispatch();
+
   // Cart Item 추가 함수
   const AddItemToCart = (item: any) => {
     addToCart(item);
   };
 
-  // Redux 저장소에서 함수에 대한 참조를 반환
-  const dispatch = useDispatch();
-
   // Item delet 함수
   const deleteData = async () => {
     try {
       const res = await fetch(
-        // deletefrom 을 사용해 해당 아이템 삭제
-        // input의 name이 숫자일 경우는 바로 삭제가 안된다.
         `https://api.apispreadsheets.com/data/F73K7GKP3Yawx76T/?query=deletefromF73K7GKP3Yawx76Twherename='${item.name}'`
         );
       console.log('parsing is json (delete)', res);
-      // useDispatch로 deleteItem을 액션에서 실행
       dispatch(deleteItem(item));
     } catch (err) {
       console.log('error:', err);
@@ -126,4 +114,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductItem);
+export default React.memo(connect(mapStateToProps, mapDispatchToProps)(ProductItem));

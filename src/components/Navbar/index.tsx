@@ -2,12 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
 import { ApplicationState } from "../../store";
-// import { Inventory } from "../../store/inventory/types";
 import { Cart } from "../../store/cart/types";
 
-// 네비게이션 바 옵션
 const NavContainer = styled.div`
   width: 100%;
   height: 0px;
@@ -16,7 +13,6 @@ const NavContainer = styled.div`
   margin: auto;
 `;
 
-// Ecart 박스 옵션 ( background: aqua; ) 
 const NavHeader = styled.div`
   width: 20%;
   float: left;
@@ -24,7 +20,6 @@ const NavHeader = styled.div`
   background: black;
 `;
 
-//cart 박스 옵션 ( background: blue; )
 const NavCart = styled.div`
   width: 20%;
   float: right;
@@ -33,8 +28,6 @@ const NavCart = styled.div`
   background: black;
 `;
 
-
-//  cart 옆 동그라미숫자(span) 옵션  ( background: red; )
 const CartSpan = styled.span`
   background-color: #6394f8;
   border-radius: 10px;
@@ -64,11 +57,7 @@ interface PropsFromState {
 
 type AllProps = PropsFromState;
 
-// children을 통해 컴포넌트 태그의 자식 컴포넌트 혹은 태그로 들어오는 값을 받을수 있다.
-const Navbar: React.FC<AllProps> = ({ 
-  data, 
-  children }) => {
-    // console.log('navBarData',data)
+const Navbar: React.FC<AllProps> = ({ data, children }) => {
   return (
     <div>
       <NavContainer>
@@ -83,15 +72,10 @@ const Navbar: React.FC<AllProps> = ({
         </NavCart>
       </NavContainer>
       {children}
-      {/* {console.log('navBarchildren:',children)} */}
     </div>
   );
 };
 
-// mapStateToProps: store로부터 state(cart)를 가져와 컴포넌트의 props로 보내게 해준다.
-// store state(cart)가 변경될 때 실행된다.
-// 변경되면 cart state를 Navbar 컴포넌트로 가져온다.
-// 여기서 Navbar 컴포넌트로 전달되는 props는 loading,errors,data
 const mapStateToProps = ({ cart }: ApplicationState) => ({
   data: cart.data,
   loading: cart.loading,
@@ -100,4 +84,4 @@ const mapStateToProps = ({ cart }: ApplicationState) => ({
 
 const mapDispatchToProps = () => ({});
 
-export default connect(mapStateToProps,mapDispatchToProps)(Navbar);
+export default React.memo(connect(mapStateToProps,mapDispatchToProps)(Navbar));

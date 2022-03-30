@@ -7,8 +7,6 @@ import { ThunkDispatch } from "redux-thunk";
 import { ApplicationState } from "../../store";
 import { Cart } from "../../store/cart/types";
 
-
-// cart 안의 styled.div 박스 설정
 const CartContainer = styled.div`
   /* height: 100%;
   width: 100%; */ 
@@ -16,7 +14,6 @@ const CartContainer = styled.div`
   background: red;
 `;
 
-// your Cart  ( color: blue; ) 
 const CartHeader = styled.h2``;
 const CartHeaderDiv = styled.div`
   height: 100%;
@@ -24,15 +21,12 @@ const CartHeaderDiv = styled.div`
   color: blue;
 `;
 
-
-// cart list의 styled.div 박스 설정 (  background: green; )
 const CartListsDiv = styled.div`
   height: 100%;
   width: 100%;
   background: green;
 `;
 
-// cart list 글씨설정 ( color: orange;)
 const CartListItemDiv = styled.div`
   display: flex;
   justify-content: space-between;
@@ -40,7 +34,6 @@ const CartListItemDiv = styled.div`
   color: orange;
 `;
 
-// cart img 옵션 ( height: 1000px )
 const CartListItemImage = styled.img`
   width: 100px;
   height: 100px;
@@ -60,11 +53,9 @@ const RemoveCart = styled.button`
   border-radius: 10px;
 `;
 
-// cart 소파이름 옵션 ( color: purple; )
 const CartListItemName = styled.p`
 `;
 
-// cart 소파가격 옵션 ( color: purple; )
 const CartListItemPrice = styled.p`
 `;
 
@@ -87,8 +78,6 @@ const CartComponent: React.FC<AllProps> = ({ cartItems, removeAllToCart, removeI
   const RemoveItem = (cartItem: any) => {
     removeItem(cartItem);
   };
-
-  // console.log('cartItems',cartItems);
 
   return (
     <CartContainer>
@@ -123,4 +112,4 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartComponent);
+export default React.memo(connect(mapStateToProps, mapDispatchToProps)(CartComponent));
