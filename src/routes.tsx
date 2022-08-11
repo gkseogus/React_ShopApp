@@ -1,39 +1,39 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HomePage from './components/HomePage';
 import Cart from './components/Cart';
 import Googlebutton from './components/GoogleLogin';
 import AuthController from './components/AuthControll';
 
-const Routes: React.SFC = () => (
+const AllRoutes: React.SFC = () => (
   <div>
     <AuthController />
-    {/* 첫 번째 route */}
-    <Route
-      exact
-      path="/"
-      render={() => (
-        <Navbar>
-          <HomePage />
-        </Navbar>
-      )}
-    />
-    {/* 두 번째 route */}
-    <Route
-      path="/cart"
-      render={() => (
-        <Navbar>
-          <Cart />
-        </Navbar>
-      )}
-    />
-    <Route path="/GoogleLogin" 
-      render={() => 
-        <Googlebutton />
-        } />
+      <Routes>
+        <Route
+          path="/" 
+          element= {        
+          <Navbar>
+            <HomePage />
+          </Navbar>
+          }
+        />
+      <Route
+        path="/cart"
+        element = {
+          <Navbar>
+            <Cart />
+          </Navbar>
+        }
+      />
+      <Route 
+        path="/GoogleLogin"
+        element = {
+          <Googlebutton />
+        }
+      />
+    </Routes>
   </div>
 );
 
-export default Routes;
+export default AllRoutes;
